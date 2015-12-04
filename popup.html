@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Episode Tracker</title>
+        <script type="text/javascript" src="lib/util.js"></script>
+        <script type="text/javascript" src="popup.js"></script>
+        <link rel="stylesheet" href="style.css" type="text/css" />
+    </head>
+
+    <body>
+        <div id="main">
+            <table id="showlist">
+            </table>
+            <button type="button" id="addshow">+</button>
+            <button type="button" id="delshows">clear</button>
+        </div>
+
+        <div id="addshowform">
+            Title<br/>
+            <input type="text" name="title" id="titleinput"/>
+            URL<br/>
+            <input type="text" name="url" id="urlinput"/>
+            Starting Episode<br/>
+            <input type="text" name="episode" id="episodeinput"/>
+            <button type="button" id="addshowbtn">Add</button>
+            <button type="button" id="canceladd">Cancel</button>
+        </div>
+    </body>
+</html>

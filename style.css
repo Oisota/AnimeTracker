@@ -1,0 +1,24 @@
+tr {
+    border: 1px solid black;
+    outline: 1px solid black;
+}
+
+td {
+    white-space: nowrap;
+    padding: .8em;
+}
+
+#addshowform {
+    display: none;
+}
+
+#main {
+}
+
+#addshow {
+    margin: 1em;
+    padding: .5em;
+    padding-left: .8em;
+    padding-right: .8em;
+    float: right;
+}
