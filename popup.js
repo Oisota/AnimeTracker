@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    /*
     chrome.storage.sync.set({
         shows: [{
             title: 'Yu Yu Hakusho',
@@ -18,20 +17,20 @@ document.addEventListener('DOMContentLoaded', function() {
             episode: 1
         }]
     });
-    */
+
     chrome.storage.sync.get('shows', util.load);
 
-    document.getElementById('addshow').onclick = function() {
+    $('#addshow').click(function() {
         document.getElementById('addshowform').style.display = 'block';
         document.getElementById('main').style.display = 'none';
-    };
+    });
 
-    document.getElementById('canceladd').onclick = function() {
+    $('#canceladd').click(function() {
         document.getElementById('addshowform').style.display = 'none';
         document.getElementById('main').style.display = 'block';
-    };
+    });
 
-    document.getElementById('addshowbtn').onclick = function() {
+    $('#addshowbtn').click(function() {
         chrome.storage.sync.get('shows', function(s) {
             s.shows.push(util.getShowInfo()); //append new show object to show array 
             util.load({shows: [s.shows[s.shows.length -1]]}); //update show list
@@ -40,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('main').style.display = 'block';
             util.resetAddShowFields();
         });
-    };
+    });
 
-    document.getElementById('delshows').onclick = function() {
+    $('#delshows').click(function() {
         chrome.storage.sync.remove('shows');
-    };
+    });
 });
 
