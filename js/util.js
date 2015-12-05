@@ -22,6 +22,7 @@
                     return function() {
                         chrome.tabs.create({url: shows[idx].url});
                         incrUrl(shows[idx]);
+                        updateStorage(shows[idx]);
                     }
                 })(i)
             });
@@ -34,6 +35,7 @@
                     return function() {
                         chrome.tabs.create({url: shows[idx].url});
                         decrUrl(shows[idx]);
+                        updateStorage(shows[idx]);
                     }
                 })(i)
             });
@@ -82,6 +84,21 @@
             $('#addshowform').css('display','block');
             $('#main').css('display','none');
         }
+    };
+
+    exports.createStorageObject = function() {
+        chrome.storage.sync.get('shows', function(s) {
+            if (s.shows === undefined) {
+                chrome.storage.sync.set({shows: []});
+            }
+        });
+    };
+
+    var updateStorage = function(show) {
+        chrome.storage.sync.get('shows', function(s) {
+            s.shows.push(show);
+            chrome.storage.sync.set(s);
+        });
     };
 
     /*

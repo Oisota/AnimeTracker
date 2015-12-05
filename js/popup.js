@@ -19,6 +19,7 @@ $(document).ready(function() {
         }]
     });
     */
+    util.createStorageObject(); //put empty object in storage if not already there
     chrome.storage.sync.get('shows', util.load);
 
     $('#addshow').click(util.toggleView);
@@ -35,6 +36,11 @@ $(document).ready(function() {
     });
 
     $('#delshows').click(function() {
-        chrome.storage.sync.remove('shows');
+        chrome.storage.sync.remove('shows', function() {
+            chrome.storage.sync.set({shows: []}, function() {
+                $('#showlist').empty();
+                chrome.storage.sync.get('shows', util.load);
+            });    
+        });
     });
 });
