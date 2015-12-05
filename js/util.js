@@ -45,7 +45,7 @@
     
             $row.appendTo('#showlist');
         }
-    }
+    };
 
     /*
      * return a song object with attributes taken from
@@ -63,7 +63,7 @@
             url: url,
             episode: episode
         }
-    }
+    };
     
     /*
      * Set add show fields to be blank
@@ -72,29 +72,39 @@
         $('#titleinput').val('');
         $('#urlinput').val('');
         $('#episodeinput').val('');
-    }
+    };
+
+    exports.toggleView = function() {
+        if ($('#main').css('display') === 'none') {
+            $('#addshowform').css('display','none');
+            $('#main').css('display','block');
+        } else {
+            $('#addshowform').css('display','block');
+            $('#main').css('display','none');
+        }
+    };
 
     /*
      * Increment the episode number of the given show and
      * update its url.
      */
-    incrUrl = function(show) {
+    var incrUrl = function(show) {
         show.episode++;
         show.url = show.base_url.replace("{}", show.episode);
-    }
+    };
     
     /*
      * Decrement the episode number of the given show and
      * update its url.
      */
-    decrUrl = function(show) {
+    var decrUrl = function(show) {
         if (show.episode === 1) { 
             return; 
         } else {
             show.episode--;
             show.url = show.base_url.replace("{}", show.episode);
         }
-    }
+    };
 
     return exports;
 
