@@ -1,3 +1,9 @@
+/*
+ * Util Module
+ *
+ * This module handles most of the logic and functionality
+ * for the extension
+ */
 (function(exports) {
     /*
      * Populate the showlist table with the given shows
@@ -20,9 +26,10 @@
                 html: 'Next',
                 click: (function(idx){
                     return function() {
-                        chrome.tabs.create({url: shows[idx].url});
+                        var URL = shows[idx].url;
                         incrUrl(shows[idx]);
                         updateStorage(shows[idx]);
+                        chrome.tabs.create({url: URL});
                     }
                 })(i)
             });
@@ -33,9 +40,10 @@
                 html: 'Prev',
                 click: (function(idx){
                     return function() {
-                        chrome.tabs.create({url: shows[idx].url});
+                        var URL = shows[idx].url;
                         decrUrl(shows[idx]);
                         updateStorage(shows[idx]);
+                        chrome.tabs.create({url: shows[idx].url});
                     }
                 })(i)
             });
@@ -94,11 +102,30 @@
         });
     };
 
+    /*
+     * Update storage by replacing the show object
+     * in storage with the given show object
+     */
     var updateStorage = function(show) {
         chrome.storage.sync.get('shows', function(s) {
-            s.shows.push(show);
+            var idx = getShowIndex(s.shows, show);
+            s.shows[idx] = show;
             chrome.storage.sync.set(s);
         });
+    };
+
+    /*
+     * Find the index of the given show in the
+     * given shows array by matching against the
+     * shows title
+     */
+    var getShowIndex = function(shows, show) {
+        for (var i=0; i<shows.length; i++) {
+            if (shows[i].title === show.title) {
+                return i;
+            }
+        }
+        return -1;
     };
 
     /*
@@ -125,4 +152,4 @@
 
     return exports;
 
-})(this.util = {});
+})(this.Util = {});
