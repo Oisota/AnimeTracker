@@ -2,46 +2,16 @@
  * Execute code when the document has loaded fully
  */
 $(document).ready(function() {
-
-    //load shows and post message to iframe
-    chrome.storage.sync.get('shows', loadShows);
-
-    $('#add-show').click(function() {
-        if (addShowFormEmpty()) {
-            return;
-        }
-        chrome.storage.sync.get('shows', function(s) {
-            var iframe = document.getElementById('sandbox-frame');
-            var show = Show();
-            var message = {
-                command: 'render',
-                template: 'show',
-                context: {
-                    shows: [show]
-                }
-            };
-            if (s.shows === undefined) {
-                s.shows = [];
-            }
-            s.shows.push(show); //append new show object to show array 
-            chrome.storage.sync.set(s); //save shows back to storage
-            iframe.contentWindow.postMessage(message, '*'); 
-            resetAddShowFields();
-        });
-    });
+    $('#add-show').click(addShow);
 });
 
-//load shows and post message to iframe
-function loadShows(items) {
-    var iframe = document.getElementById('sandbox-frame');
-    var message = {
-        command: 'render',
-        template: 'show',
-        context: items
-    };
-    iframe.contentWindow.postMessage(message, '*');
-}
-
+/*
+ * When the window has fully loaded, load the
+ * list of shows from chrome storage
+ */
+window.addEventListener('load', function() {
+    chrome.storage.sync.get('shows', loadShows);
+});
 
 /*
  * Listen for message events and if it is a response from
@@ -53,6 +23,48 @@ window.addEventListener('message', function(event) {
         $('#show-list').append(event.data.html);
     }
 });
+
+/*
+ * Add a show to the list of shows and add
+ * it to chrome storage
+ */
+function addShow() {
+    if (addShowFormEmpty()) {
+        return;
+    }
+    chrome.storage.sync.get('shows', function(s) {
+        var iframe = document.getElementById('sandbox-frame');
+        var show = Show();
+        var message = {
+            command: 'render',
+            template: 'show',
+            context: {
+                shows: [show]
+            }
+        };
+        if (s.shows === undefined) {
+            s.shows = [];
+        }
+        s.shows.push(show); //append new show object to show array 
+        chrome.storage.sync.set(s); //save shows back to storage
+        iframe.contentWindow.postMessage(message, '*'); 
+        resetAddShowFields();
+    });
+}
+
+/*
+ * Load shows and post a message to the sandboxed
+ * iframe.
+ */
+function loadShows(items) {
+    var iframe = document.getElementById('sandbox-frame');
+    var message = {
+        command: 'render',
+        template: 'show',
+        context: items
+    };
+    iframe.contentWindow.postMessage(message, '*');
+}
 
 /*
  * Create new show object from the input data
@@ -68,6 +80,8 @@ function Show() {
     show.removeId = generateId();
     show.confirmRemoveId = generateId();
     show.infoId = generateId();
+    show.confirmInfoId = generateId();
+    show.cancelInfoId = generateId();
 
     return show;
 }
