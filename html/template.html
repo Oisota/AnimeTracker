@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Template Sandbox</title>
+        <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+        <script type="text/javascript" src="../js/handlebars-v4.0.5.js"></script>
+        <script type="text/javascript" src="../js/template.js"></script>
+    </head>
+    <body>
+        <script id="show" type="text/x-handlebars-template">
+            {{#each shows}}
+            <li class="list-group-item">
+                <h4>{{this.title}}</h4>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-triangle-left"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-triangle-right"></span>
+                    </button>
+                    <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#{{this.infoId}}">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#{{this.removeId}}">
+                        <span class="glyphicon glyphicon-trash">
+                    </button>
+                </div>
+
+                <div id="{{this.removeId}}" class="collapse">
+                    Remove? 
+                    <button id="{{this.confirmRemoveId}}" type="button" class="btn">Yes</button>
+                    <button type="button" class="btn" data-toggle="collapse" data-target="#{{this.removeId}}">No</button>
+                </div>
+
+                <div id="{{this.infoId}}" class="collapse">
+                    <div class="form-group">
+                        <label for="titleinput">Title</label>
+                        <input type="text" name="title" class="form-control" id="{{this.titleInputId}}" value="{{this.title}}"/>
+
+                        <label for="urlinput">URL</label>
+                        <input type="text" name="url" class="form-control" id="{{this.urlInputId}}" value="{{this.url}}"/>
+
+                        <label for="episodeinput">Episode</label>
+                        <input type="text" name="episode" class="form-control" id="{{episodeInputId}}" value="{{this.episode}}"/>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </script>
+    </body>
+</html>

@@ -1,29 +1,16 @@
-tr {
-    border: 1px solid black;
-    outline: 1px solid black;
+body {
+    width: 250px;
 }
 
-td {
+li {
     white-space: nowrap;
-    padding: .8em;
 }
 
-#addshowform {
+#sandbox-frame {
     display: none;
 }
 
-#main {
-}
-
 #addshow {
-    margin: 1em;
-    padding: .5em;
-    padding-left: .8em;
-    padding-right: .8em;
-    float: right;
-}
-
-#delshows {
     margin: 1em;
     padding: .5em;
     padding-left: .8em;
