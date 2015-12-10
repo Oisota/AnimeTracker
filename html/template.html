@@ -45,6 +45,10 @@
                         <label for="episodeinput">Episode</label>
                         <input type="text" name="episode" class="form-control" id="{{episodeInputId}}" value="{{this.episode}}"/>
                     </div>
+                    <div class="text-center">
+                        <button type="button" id="{{this.confirmInfoId}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{this.infoId}}">Update</button>
+                        <button type="button" id="{{this.cancelInfoId}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{this.infoId}}">Cancel</button>
+                    </div>
                 </div>
             </li>
             {{/each}}
