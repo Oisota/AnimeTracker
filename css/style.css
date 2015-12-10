@@ -2,18 +2,6 @@ body {
     width: 250px;
 }
 
-li {
-    white-space: nowrap;
-}
-
 #sandbox-frame {
     display: none;
-}
-
-#addshow {
-    margin: 1em;
-    padding: .5em;
-    padding-left: .8em;
-    padding-right: .8em;
-    float: right;
 }
