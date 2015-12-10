@@ -16,7 +16,6 @@ $(document).ready(function() {
  * the requested template with the given context.
  */
 window.addEventListener('message', function(event) {
-    console.log('request recieved', event.data);
     if (event.data.command === 'render') {
         var HTML = templates[event.data.template](event.data.context);
         event.source.postMessage({

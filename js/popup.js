@@ -34,9 +34,6 @@ $(document).ready(function() {
 //load shows and post message to iframe
 function loadShows(items) {
     var iframe = document.getElementById('sandbox-frame');
-    if (iframe.contentWindow.postMessage === undefined) {
-        console.log("Error");
-    }
     var message = {
         command: 'render',
         template: 'show',
@@ -52,7 +49,6 @@ function loadShows(items) {
  * new show data.
  */
 window.addEventListener('message', function(event) {
-    console.log('response recieved', event.data);
     if (event.data.template === 'show') {
         $('#show-list').append(event.data.html);
     }
