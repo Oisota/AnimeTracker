@@ -9,7 +9,7 @@
     <body>
         <script id="show" type="text/x-handlebars-template">
             {{#each shows}}
-            <li class="list-group-item">
+            <li id="{{this.id}}" class="list-group-item">
                 <div class="text-center">
                     <h4>{{this.title}}</h4>
                     <div class="btn-group">

@@ -48,6 +48,7 @@
      * Remove a show from chrome storage
      */
     exports.removeShow = function(showId) {
+        $('#' + showId).remove()
         chrome.storage.sync.get(storageKey, function(items) {
             var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
             items.shows.splice(idx, 1);
