@@ -85,6 +85,9 @@
         show.infoId = generateId();
         show.confirmInfoId = generateId();
         show.cancelInfoId = generateId();
+        show.urlInputId = generateId();
+        show.titleInputId = generateId();
+        show.episodeInputId = generateId();
 
         return show;
     }

@@ -28,28 +28,36 @@ window.addEventListener('message', function(event) {
             //delete show
             $('#' + shows[i].confirmRemoveId).click((function(id) {
                 return function() {
-                   Util.removeShow(id); 
+                    Util.removeShow(id); 
                 };
             })(shows[i].id));
 
             //update show info
-            $('#' + shows[i].confirmInfoId).click((function(id) {
+            $('#' + shows[i].confirmInfoId).click((function(show) {
                 return function() {
+                    show.title = $('#' + show.titleInputId).val();
+                    show.baseUrl = $('#' + show.urlInputId).val();
+                    show.episode = $('#' + show.episodeInputId).val();
+                    show.url = show.baseUrl.replace('{}', show.episode);
+                    Util.updateStorage(show);
                 }
-            })(shows[i].id));
+            })(shows[i]));
 
             //cancel show update info
-            $('#' + shows[i].cancelInfoId).click((function(id) {
+            $('#' + shows[i].cancelInfoId).click((function(show) {
                 return function() {
+                    $('#' + show.titleInputId).val(show.title);
+                    $('#' + show.urlInputId).val(show.baseUrl);
+                    $('#' + show.episodeInputId).val(show.episode);
                 }
-            })(shows[i].id));
+            })(shows[i]));
 
             //next episode
             $('#' + shows[i].nextId).click((function(show) {
                 return function() {
                     var tempUrl = show.url;
                     show.url = show.baseUrl.replace('{}', ++show.episode);
-                    Util.updateStorage(show)
+                    Util.updateStorage(show);
                     chrome.tabs.create({
                         url: tempUrl
                     });
@@ -63,7 +71,7 @@ window.addEventListener('message', function(event) {
                     if (show.episode > 1) {
                         show.url = show.baseUrl.replace('{}', --show.episode);
                     }
-                    Util.updateStorage(show)
+                    Util.updateStorage(show);
                     chrome.tabs.create({
                         url: tempUrl
                     });
