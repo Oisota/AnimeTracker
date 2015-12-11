@@ -21,5 +21,54 @@ window.addEventListener('load', function() {
 window.addEventListener('message', function(event) {
     if (event.data.template === 'show') {
         $('#show-list').append(event.data.html);
+        
+        //add button evnet listeners
+        var shows = event.data.shows;
+        for (var i=0; i<shows.length; i++) {
+            //delete show
+            $('#' + shows[i].confirmRemoveId).click((function(id) {
+                return function() {
+                   Util.removeShow(id); 
+                };
+            })(shows[i].id));
+
+            //update show info
+            $('#' + shows[i].confirmInfoId).click((function(id) {
+                return function() {
+                }
+            })(shows[i].id));
+
+            //cancel show update info
+            $('#' + shows[i].cancelInfoId).click((function(id) {
+                return function() {
+                }
+            })(shows[i].id));
+
+            //next episode
+            $('#' + shows[i].nextId).click((function(show) {
+                return function() {
+                    var tempUrl = show.url;
+                    show.url = show.baseUrl.replace('{}', ++show.episode);
+                    Util.updateStorage(show)
+                    chrome.tabs.create({
+                        url: tempUrl
+                    });
+                }
+            })(shows[i]));
+
+            //previous episode
+            $('#' + shows[i].prevId).click((function(show) {
+                return function() {
+                    var tempUrl = show.url;
+                    if (show.episode > 1) {
+                        show.url = show.baseUrl.replace('{}', --show.episode);
+                    }
+                    Util.updateStorage(show)
+                    chrome.tabs.create({
+                        url: tempUrl
+                    });
+                }
+            })(shows[i]));
+        }
     }
 });

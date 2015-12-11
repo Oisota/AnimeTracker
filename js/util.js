@@ -1,4 +1,7 @@
 (function(exports) {
+
+    var storageKey = 'shows';
+
     /*
      * Add a show to the list of shows and add
      * it to chrome storage
@@ -7,7 +10,7 @@
         if (fieldsEmpty(['title-input','url-input','episode-input'])) {
             return;
         }
-        chrome.storage.sync.get('shows', function(s) {
+        chrome.storage.sync.get(storageKey, function(s) {
             var iframe = document.getElementById('sandbox-frame');
             var show = Show('title-input', 'url-input', 'episode-input');
             var message = {
@@ -42,15 +45,40 @@
     }
 
     /*
+     * Remove a show from chrome storage
+     */
+    exports.removeShow = function(showId) {
+        chrome.storage.sync.get(storageKey, function(items) {
+            var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
+            items.shows.splice(idx, 1);
+            chrome.storage.sync.set(items)
+        });
+    }
+
+    /*
+     * Update storage with the given show
+     */
+    exports.updateStorage = function(show) {
+        chrome.storage.sync.get(storageKey, function(items) {
+            var idx = items.shows.map(function(x) {return x.id}).indexOf(show.id);
+            items.shows[idx] = show;
+            chrome.storage.sync.set(items)
+        });
+    }
+
+    /*
      * Create new show object from the given input field Id's
      */
     var Show = function(titleField, urlField, episodeField) {
         var show = {};
 
         show.title = $('#' + titleField).val();
-        show.base_url = $('#' + urlField).val();
+        show.baseUrl = $('#' + urlField).val();
         show.episode = $('#' + episodeField).val();
-        show.url = show.base_url.replace('{}', show.episode);
+        show.url = show.baseUrl.replace('{}', show.episode);
+        show.id = generateId();
+        show.nextId = generateId();
+        show.prevId = generateId();
         show.removeId = generateId();
         show.confirmRemoveId = generateId();
         show.infoId = generateId();
@@ -58,14 +86,6 @@
         show.cancelInfoId = generateId();
 
         return show;
-    }
-
-    /*
-     * Update the given url with the given
-     * episode number and return the new url
-     */
-    var updateUrl = function(episode, base_url) {
-        return base_url.replace('{}', episode);
     }
 
     /*

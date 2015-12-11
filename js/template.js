@@ -21,6 +21,7 @@ window.addEventListener('message', function(event) {
         event.source.postMessage({
             template: event.data.template,
             html: HTML,
+            shows: event.data.context.shows
         }, event.origin);
     }
 });
