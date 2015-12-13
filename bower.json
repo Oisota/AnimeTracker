@@ -1,0 +1,9 @@
+{
+    "name": "Episode Tracker",
+    "description": "Extension that tracks which episode of a series you are on.",
+    "dependencies": {
+        "jquery": "~2.1",
+        "bootstrap": "~3.3",
+        "handlebars": "~4.0"
+    }
+}
