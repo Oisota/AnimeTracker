@@ -14,7 +14,7 @@
             var iframe = document.getElementById('sandbox-frame');
             var show = Show({
                 title: $('#title-input').val(),
-                baseUrl: $('#url-input').val(),
+                url: $('#url-input').val(),
                 episode: $('#episode-input').val()
             });
             var message = {
@@ -63,7 +63,7 @@
     /*
      * Update storage with the given show
      */
-    exports.update= function(show) {
+    exports.update = function(show) {
         chrome.storage.sync.get(storageKey, function(items) {
             var idx = items.shows.map(function(x) {return x.id}).indexOf(show.id);
             items.shows[idx] = show;
