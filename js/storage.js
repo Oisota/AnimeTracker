@@ -12,7 +12,11 @@
         }
         chrome.storage.sync.get(storageKey, function(s) {
             var iframe = document.getElementById('sandbox-frame');
-            var show = Show('title-input', 'url-input', 'episode-input');
+            var show = Show({
+                title: $('#title-input').val(),
+                baseUrl: $('#url-input').val(),
+                episode: $('#episode-input').val()
+            });
             var message = {
                 command: 'render',
                 template: 'show',
@@ -49,17 +53,17 @@
      */
     exports.removeShow = function(showId) {
         $('#' + showId).remove()
-        chrome.storage.sync.get(storageKey, function(items) {
-            var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
-            items.shows.splice(idx, 1);
-            chrome.storage.sync.set(items)
-        });
+            chrome.storage.sync.get(storageKey, function(items) {
+                var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
+                items.shows.splice(idx, 1);
+                chrome.storage.sync.set(items)
+            });
     }
 
     /*
      * Update storage with the given show
      */
-    exports.updateStorage = function(show) {
+    exports.update= function(show) {
         chrome.storage.sync.get(storageKey, function(items) {
             var idx = items.shows.map(function(x) {return x.id}).indexOf(show.id);
             items.shows[idx] = show;
@@ -68,14 +72,14 @@
     }
 
     /*
-     * Create new show object from the given input field Id's
+     * Create new show object from the given show data object
      */
-    var Show = function(titleField, urlField, episodeField) {
+    var Show = function(data) {
         var show = {};
 
-        show.title = $('#' + titleField).val();
-        show.baseUrl = $('#' + urlField).val();
-        show.episode = $('#' + episodeField).val();
+        show.title = data.title;
+        show.baseUrl = data.url;
+        show.episode = data.episode;
         show.url = show.baseUrl.replace('{}', show.episode);
         show.id = generateId();
         show.nextId = generateId();
@@ -105,7 +109,7 @@
         }
         return false;
     }
-        
+
 
     /*
      * blank out the given array of field Id's
@@ -122,4 +126,4 @@
     var generateId = function() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
-})(this.Util = {});
+})(this.Storage = {});

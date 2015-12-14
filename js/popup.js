@@ -2,7 +2,7 @@
  * Execute code when the document has loaded fully
  */
 $(document).ready(function() {
-    $('#add-show').click(Util.addShow);
+    $('#add-show').click(Storage.addShow);
 });
 
 /*
@@ -10,7 +10,7 @@ $(document).ready(function() {
  * list of shows from chrome storage
  */
 window.addEventListener('load', function() {
-    chrome.storage.sync.get('shows', Util.loadShows);
+    chrome.storage.sync.get('shows', Storage.loadShows);
 });
 
 /*
@@ -21,14 +21,15 @@ window.addEventListener('load', function() {
 window.addEventListener('message', function(event) {
     if (event.data.template === 'show') {
         $('#show-list').append(event.data.html);
+        //Storage.addShowListeners(event.data.shows);
         
-        //add button evnet listeners
+        //add button event listeners
         var shows = event.data.shows;
         for (var i=0; i<shows.length; i++) {
             //delete show
             $('#' + shows[i].confirmRemoveId).click((function(id) {
                 return function() {
-                    Util.removeShow(id); 
+                    Storage.removeShow(id); 
                 };
             })(shows[i].id));
 
@@ -39,7 +40,7 @@ window.addEventListener('message', function(event) {
                     show.baseUrl = $('#' + show.urlInputId).val();
                     show.episode = $('#' + show.episodeInputId).val();
                     show.url = show.baseUrl.replace('{}', show.episode);
-                    Util.updateStorage(show);
+                    Storage.update(show);
                 }
             })(shows[i]));
 
@@ -57,7 +58,7 @@ window.addEventListener('message', function(event) {
                 return function() {
                     var tempUrl = show.url;
                     show.url = show.baseUrl.replace('{}', ++show.episode);
-                    Util.updateStorage(show);
+                    Storage.update(show);
                     chrome.tabs.create({
                         url: tempUrl
                     });
@@ -71,7 +72,7 @@ window.addEventListener('message', function(event) {
                     if (show.episode > 1) {
                         show.url = show.baseUrl.replace('{}', --show.episode);
                     }
-                    Util.updateStorage(show);
+                    Storage.update(show);
                     chrome.tabs.create({
                         url: tempUrl
                     });
