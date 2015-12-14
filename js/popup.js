@@ -44,6 +44,7 @@ function addListeners(shows) {
                 show.baseUrl = $('#' + show.urlInputId).val();
                 show.episode = $('#' + show.episodeInputId).val();
                 show.url = show.baseUrl.replace('{}', show.episode);
+                $('#' + show.id + ' h4').html(show.title);
                 Storage.update(show);
             }
         })(shows[i]));
