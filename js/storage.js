@@ -11,25 +11,19 @@
             return;
         }
         chrome.storage.sync.get(storageKey, function(s) {
-            var iframe = document.getElementById('sandbox-frame');
             var show = Show({
                 title: $('#title-input').val(),
                 url: $('#url-input').val(),
                 episode: $('#episode-input').val()
             });
-            var message = {
-                command: 'render',
-                template: 'show',
-                context: {
-                    shows: [show]
-                }
-            };
+            var html = Handlebars.templates['show']({shows: [show]});
+            $('#show-list').append(html);
+            addListeners([show]);
             if (s.shows === undefined) {
                 s.shows = [];
             }
             s.shows.push(show); //append new show object to show array 
             chrome.storage.sync.set(s); //save shows back to storage
-            iframe.contentWindow.postMessage(message, '*'); 
             resetFields(['title-input','url-input','episode-input']);
         });
     }
@@ -39,13 +33,9 @@
      * iframe.
      */
     exports.loadShows = function(shows) {
-        var iframe = document.getElementById('sandbox-frame');
-        var message = {
-            command: 'render',
-            template: 'show',
-            context: shows
-        };
-        iframe.contentWindow.postMessage(message, '*');
+        var html = Handlebars.templates['show'](shows);
+        $('#show-list').append(html);
+        addListeners(shows.shows);
     }
 
     /*
@@ -125,5 +115,65 @@
      */
     var generateId = function() {
         return '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    /*
+     * Add button event listeners
+     */
+    var addListeners = function(shows) {
+        for (var i=0; i<shows.length; i++) {
+            //delete show
+            $('#' + shows[i].confirmRemoveId).click((function(id) {
+                return function() {
+                    Storage.removeShow(id); 
+                };
+            })(shows[i].id));
+
+            //update show info
+            $('#' + shows[i].confirmInfoId).click((function(show) {
+                return function() {
+                    show.title = $('#' + show.titleInputId).val();
+                    show.baseUrl = $('#' + show.urlInputId).val();
+                    show.episode = $('#' + show.episodeInputId).val();
+                    show.url = show.baseUrl.replace('{}', show.episode);
+                    $('#' + show.id + ' h4').html(show.title);
+                    Storage.update(show);
+                }
+            })(shows[i]));
+
+            //cancel show update info
+            $('#' + shows[i].cancelInfoId).click((function(show) {
+                return function() {
+                    $('#' + show.titleInputId).val(show.title);
+                    $('#' + show.urlInputId).val(show.baseUrl);
+                    $('#' + show.episodeInputId).val(show.episode);
+                }
+            })(shows[i]));
+
+            //next episode
+            $('#' + shows[i].nextId).click((function(show) {
+                return function() {
+                    var tempUrl = show.url;
+                    show.url = show.baseUrl.replace('{}', ++show.episode);
+                    Storage.update(show);
+                    chrome.tabs.create({
+                        url: tempUrl
+                    });
+                }
+            })(shows[i]));
+
+            //previous episode
+            $('#' + shows[i].prevId).click((function(show) {
+                return function() {
+                    if (show.episode > 1) {
+                        show.url = show.baseUrl.replace('{}', --show.episode);
+                    }
+                    Storage.update(show);
+                    chrome.tabs.create({
+                        url: show.url
+                    });
+                }
+            })(shows[i]));
+        }
     }
 })(this.Storage = {});
