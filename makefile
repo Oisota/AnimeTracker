@@ -3,7 +3,6 @@ bld_dir = build
 src_dir = js
 lib_dir = lib
 asset_dir = assets
-icons = $(bld_dir)/assets/icon16.png $(bld_dir)/assets/icon19.png $(bld_dir)/assets/icon38.png $(bld_dir)/assets/icon48.png $(bld_dir)/assets/icon128.png
 
 
 .PHONY: all
@@ -41,7 +40,7 @@ $(bld_dir)/assets/icon%.png: assets/icon%.png
 
 
 .PHONY: templates
-templates: $(template_dir)/show.js
+templates: $(tmplt_dir)/show.js
 
 .PHONY: clean
 clean:
