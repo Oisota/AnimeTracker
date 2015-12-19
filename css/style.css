@@ -1,3 +1,7 @@
 body {
     width: 250px;
 }
+
+#new-show-form {
+    padding-bottom: 0.8em;
+}
