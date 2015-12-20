@@ -121,6 +121,9 @@
      * Add button event listeners
      */
     var addListeners = function(shows) {
+        if (shows === undefined) {
+            return
+        }
         for (var i=0; i<shows.length; i++) {
             //delete show
             $('#' + shows[i].confirmRemoveId).click((function(id) {
