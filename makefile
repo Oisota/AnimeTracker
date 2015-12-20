@@ -38,7 +38,7 @@ $(tmplt_dir)/%.min.js: $(tmplt_dir)/%.handlebars
 	$(tmplt) $(tmplt_flags) $< > $@
 
 $(bld_dir)/manifest.json: manifest.json
-	cp manifest.json $(bld_dir)
+	cp $< $@
 
 $(bld_dir)/css/style.css: css/style.css $(lib_dir)/bootstrap/dist/css/bootstrap.min.css
 	cat $^ > $@
@@ -54,7 +54,7 @@ templates: $(tmplt_dir)/show.min.js
 
 .PHONY: clean
 clean:
-	$(RM) -r $(bld_dir) $(tmplt_dir)/*.js
+	$(RM) -r $(bld_dir) $(src_dir)/*.min.js $(tmplt_dir)/*.js
 
 .PHONY: rebuild
 rebuild: clean all
