@@ -1,4 +1,5 @@
 assets/*.xcf
 lib/*
 js/templates/*.js
+js/*.min.js
 build
