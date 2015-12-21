@@ -42,12 +42,12 @@
      * Remove a show from chrome storage
      */
     exports.removeShow = function(showId) {
-        $('#' + showId).remove()
-            chrome.storage.sync.get(key, function(items) {
-                var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
-                items.shows.splice(idx, 1);
-                chrome.storage.sync.set(items)
-            });
+        $('#' + showId).remove();
+        chrome.storage.sync.get(key, function(items) {
+            var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
+            items.shows.splice(idx, 1);
+            chrome.storage.sync.set(items)
+        });
     }
 
     /*
