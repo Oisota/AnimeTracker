@@ -1,6 +1,6 @@
 (function(exports) {
 
-    var storageKey = 'shows';
+    var key = 'shows';
 
     /*
      * Add a show to the list of shows and add
@@ -10,7 +10,7 @@
         if (fieldsEmpty(['title-input','url-input','episode-input'])) {
             return;
         }
-        chrome.storage.sync.get(storageKey, function(s) {
+        chrome.storage.sync.get(key, function(s) {
             var show = Show({
                 title: $('#title-input').val(),
                 url: $('#url-input').val(),
@@ -43,7 +43,7 @@
      */
     exports.removeShow = function(showId) {
         $('#' + showId).remove()
-            chrome.storage.sync.get(storageKey, function(items) {
+            chrome.storage.sync.get(key, function(items) {
                 var idx = items.shows.map(function(x) {return x.id}).indexOf(showId);
                 items.shows.splice(idx, 1);
                 chrome.storage.sync.set(items)
@@ -54,11 +54,18 @@
      * Update storage with the given show
      */
     exports.update = function(show) {
-        chrome.storage.sync.get(storageKey, function(items) {
+        chrome.storage.sync.get(key, function(items) {
             var idx = items.shows.map(function(x) {return x.id}).indexOf(show.id);
             items.shows[idx] = show;
             chrome.storage.sync.set(items)
         });
+    }
+
+    /*
+     * Return the key used for chrome storage.
+     */
+    exports.getKey = function() {
+        return key;
     }
 
     /*
