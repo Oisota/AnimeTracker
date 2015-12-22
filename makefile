@@ -1,61 +1,70 @@
-tmplt = handlebars
-tmplt_flags = -m
+TMPLT = handlebars
+TMPLT_FLAGS = -m
+TEMPLATES = js/templates
 
-min = uglifyjs
-min_flags = --screw-ie8 -o
+MIN = uglifyjs
+MIN_FLAGS = --screw-ie8 -o
 
-tmplt_dir = js/templates
-bld_dir = build
-ext_dir = $(bld_dir)/AnimeTracker
-src_dir = js
-lib_dir = lib
-asset_dir = assets
+BUILD = build
+EXT = $(BUILD)/AnimeTracker
+SRC = js
+LIB = lib
+ASSETS = assets
 
-jquery = jquery/dist/jquery.min.js
-bstrap = bootstrap/dist/js/bootstrap.min.js
-hbars = handlebars/handlebars.runtime.min.js
+JQUERY = jquery/dist/jquery.min.js
+BSTRAP = bootstrap/dist/js/bootstrap.min.js
+HBARS = handlebars/handlebars.runtime.min.js
 
 
 .PHONY: all
-all: $(ext_dir) $(ext_dir)/html/popup.html $(ext_dir)/js/popup.js $(ext_dir)/css/style.css $(ext_dir)/fonts/glyphicons-halflings-regular.* $(ext_dir)/assets/icon*.png $(ext_dir)/manifest.json
+all: $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json
 
-$(ext_dir):
-	mkdir -p $(ext_dir)/html
-	mkdir -p $(ext_dir)/css
-	mkdir -p $(ext_dir)/js
-	mkdir -p $(ext_dir)/assets
-	mkdir -p $(ext_dir)/fonts
+# make directory structure
+$(EXT):
+	mkdir -p $(EXT)/html
+	mkdir -p $(EXT)/css
+	mkdir -p $(EXT)/js
+	mkdir -p $(EXT)/assets
+	mkdir -p $(EXT)/fonts
 
-$(ext_dir)/html/popup.html: html/popup.html
+# remove script tags
+$(EXT)/html/popup.html: html/popup.html
 	sed '/jquery\|bootstrap\|handlebars\|storage.js\|show.js/d' $^ > $@
 
-$(ext_dir)/js/popup.js: $(lib_dir)/$(jquery) $(lib_dir)/$(bstrap) $(lib_dir)/$(hbars) $(src_dir)/storage.min.js $(src_dir)/popup.min.js $(tmplt_dir)/show.min.js
+# concatenate all js files
+$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(SRC)/storage.min.js $(SRC)/popup.min.js $(TEMPLATES)/show.min.js
 	cat $^ > $@
 
-$(src_dir)/%.min.js: $(src_dir)/%.js
-	$(min) $^ $(min_flags) $@
+# minify js
+$(SRC)/%.min.js: $(SRC)/%.js
+	$(MIN) $^ $(MIN_FLAGS) $@
 
-$(tmplt_dir)/%.min.js: $(tmplt_dir)/%.handlebars
-	$(tmplt) $(tmplt_flags) $< > $@
+# compile templates
+$(TEMPLATES)/%.min.js: $(TEMPLATES)/%.handlebars
+	$(TMPLT) $(TMPLT_FLAGS) $< > $@
 
-$(ext_dir)/manifest.json: manifest.json
+# copy manifest
+$(EXT)/manifest.json: manifest.json
 	cp $< $@
 
-$(ext_dir)/css/style.css: css/style.css $(lib_dir)/bootstrap/dist/css/bootstrap.min.css
+# concatenate all css files
+$(EXT)/css/style.css: css/style.css $(LIB)/bootstrap/dist/css/bootstrap.min.css
 	cat $^ > $@
 
-$(ext_dir)/fonts/glyphicons-halflings-regular.%: lib/bootstrap/dist/fonts/glyphicons-halflings-regular.%
-	cp $^ $(ext_dir)/fonts
+# copy fonts
+$(EXT)/fonts/glyphicons-halflings-regular.%: lib/bootstrap/dist/fonts/glyphicons-halflings-regular.%
+	cp $^ $(EXT)/fonts
 
-$(ext_dir)/assets/icon%.png: assets/icon%.png
-	cp $^ $(ext_dir)/assets 
+# copy icons
+$(EXT)/assets/icon%.png: assets/icon%.png
+	cp $^ $(EXT)/assets 
 
 .PHONY: templates
-templates: $(tmplt_dir)/show.min.js
+templates: $(TEMPLATES)/show.min.js
 
 .PHONY: clean
 clean:
-	$(RM) -r $(bld_dir) $(src_dir)/*.min.js $(tmplt_dir)/*.js
+	$(RM) -r $(BUILD) $(SRC)/*.min.js $(TEMPLATES)/*.js
 
 .PHONY: rebuild
 rebuild: clean all
