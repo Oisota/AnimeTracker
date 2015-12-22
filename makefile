@@ -5,6 +5,9 @@ TEMPLATES = js/templates
 MIN = uglifyjs
 MIN_FLAGS = --screw-ie8 -o
 
+SED = sed
+SED_FLAGS = '/jquery\|bootstrap\|handlebars\|storage.js\|show.js/d'
+
 BUILD = build
 EXT = $(BUILD)/AnimeTracker
 SRC = js
@@ -29,7 +32,7 @@ $(EXT):
 
 # remove script tags
 $(EXT)/html/popup.html: html/popup.html
-	sed '/jquery\|bootstrap\|handlebars\|storage.js\|show.js/d' $^ > $@
+	$(SED) $(SED_FLAGS) $^ > $@
 
 # concatenate all js files
 $(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(SRC)/storage.min.js $(SRC)/popup.min.js $(TEMPLATES)/show.min.js
