@@ -6,7 +6,7 @@ MIN = uglifyjs
 MIN_FLAGS = --screw-ie8 -o
 
 SED = sed
-SED_FLAGS = '/jquery\|bootstrap\|handlebars\|storage.js\|show.js/d'
+SED_FLAGS = '/jquery\|bootstrap\|handlebars\|storage.js\|show.min.js/d'
 
 BUILD = build
 EXT = $(BUILD)/AnimeTracker
