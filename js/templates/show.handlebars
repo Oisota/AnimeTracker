@@ -1,10 +1,10 @@
 <div class="text-center">
     <h4>{{title}}</h4>
     <div class="btn-group">
-        <button id="{{prevId}}"type="button" class="btn btn-primary">
+        <button type="button" class="prev btn btn-primary">
             <span class="glyphicon glyphicon-triangle-left"></span>
         </button>
-        <button id="{{nextId}}"type="button" class="btn btn-primary">
+        <button type="button" class="next btn btn-primary">
             <span class="glyphicon glyphicon-triangle-right"></span>
         </button>
         <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#{{infoId}}">
@@ -18,23 +18,23 @@
 
 <div id="{{removeId}}" class="collapse">
     Remove? 
-    <button id="{{confirmRemoveId}}" type="button" class="btn">Yes</button>
+    <button type="button" class="remove btn">Yes</button>
     <button type="button" class="btn" data-toggle="collapse" data-target="#{{removeId}}">No</button>
 </div>
 
 <div id="{{infoId}}" class="collapse">
     <div class="form-group">
         <label for="titleinput">Title</label>
-        <input type="text" name="title" class="form-control" id="{{titleInputId}}" value="{{title}}"/>
+        <input type="text" name="title" class="title form-control" value="{{title}}"/>
 
         <label for="urlinput">URL</label>
-        <input type="text" name="url" class="form-control" id="{{urlInputId}}" value="{{baseUrl}}"/>
+        <input type="text" name="url" class="url form-control" value="{{baseUrl}}"/>
 
         <label for="episodeinput">Episode</label>
-        <input type="text" name="episode" class="form-control" id="{{episodeInputId}}" value="{{episode}}"/>
+        <input type="text" name="episode" class="episode form-control" value="{{episode}}"/>
     </div>
     <div class="text-center">
-        <button type="button" id="{{confirmInfoId}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{infoId}}">Update</button>
-        <button type="button" id="{{cancelInfoId}}" class="btn btn-primary" data-toggle="collapse" data-target="#{{infoId}}">Cancel</button>
+        <button type="button" class="update btn btn-primary" data-toggle="collapse" data-target="#{{infoId}}">Update</button>
+        <button type="button" class="cancel btn btn-primary" data-toggle="collapse" data-target="#{{infoId}}">Cancel</button>
     </div>
 </div>

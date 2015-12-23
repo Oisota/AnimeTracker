@@ -1,8 +1,9 @@
-var app = app || {};
-
-(function() {
-    app.ShowCollection = Backbone.Collection.extend({
-        model: app.ShowModel,
+(function(exports) {
+    /*
+     * Collection for show models
+     */
+    exports.ShowCollection = Backbone.Collection.extend({
+        model: exports.ShowModel,
         url: '#'
     });
-})();
+})(this.App = this.App || {});

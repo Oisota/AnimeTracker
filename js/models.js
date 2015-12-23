@@ -1,7 +1,15 @@
-var app = app || {};
+(function(exports) {
+    /*
+     * Generate random and unique id's
+     */
+    var generateId = function() {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    };
 
-(function() {
-    app.ShowModel = Backbone.Model.extend({
+    /*
+     * Model for containing show data
+     */
+    exports.ShowModel = Backbone.Model.extend({
         defaults: {
             title: 'Anime Title',
             baseUrl: '#',
@@ -11,18 +19,31 @@ var app = app || {};
 
         initialize: function() {
             this.set({
-                id: gen_id(),
-                nextId: gen_id(),
-                prevId: gen_id(),
-                removeId: gen_id(),
-                confirmRemoveId: gen_id(),
-                infoId: gen_id(),
-                confirmInfoId: gen_id(),
-                cancelInfoId: gen_id(),
-                urlInputId: gen_id(),
-                titleInputId: gen_id(),
-                episodeInputId: gen_id()
+                removeId: generateId(),
+                infoId: generateId(),
+            });
+        },
+
+        incrUrl: function() {
+            var baseUrl = this.get('baseUrl')
+            var episode = this.get('episode')
+            var url = baseUrl.replace('{}', ++episode);
+            this.set({
+                url: url,
+                episode: episode
+            });
+        },
+
+        decrUrl: function() {
+            var baseUrl = this.get('baseUrl')
+            var episode = this.get('episode')
+            if (episode > 1) {
+                var url = baseUrl.replace('{}', --episode);
+            }
+            this.set({
+                url: url,
+                episode: episode
             });
         }
     });
-})();
+})(this.App = this.App || {});
