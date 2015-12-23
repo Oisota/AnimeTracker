@@ -6,8 +6,13 @@
         <script type="text/javascript" src="../lib/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="../lib/bootstrap/dist/js/bootstrap.js"></script>
         <script type="text/javascript" src="../lib/handlebars/handlebars.runtime.js"></script>
+        <script type="text/javascript" src="../lib/underscore/underscore.js"></script>
+        <script type="text/javascript" src="../lib/backbone/backbone.js"></script>
         <script type="text/javascript" src="../js/templates/show.min.js"></script>
-        <script type="text/javascript" src="../js/storage.js"></script>
+        <!-- <script type="text/javascript" src="../js/storage.js"></script> -->
+        <script type="text/javascript" src="../js/models.js"></script>
+        <script type="text/javascript" src="../js/collections.js"></script>
+        <script type="text/javascript" src="../js/views.js"></script>
         <script type="text/javascript" src="../js/popup.js"></script>
         <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
@@ -19,7 +24,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <ul id="show-list" class="list-group">
+                    <ul id="show-list-view" class="list-group">
                     </ul>
 
                     <button type="button" class="btn btn-success center-block" data-toggle="collapse" data-target="#new-show-form">
