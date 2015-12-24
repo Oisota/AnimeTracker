@@ -1,4 +1,5 @@
 (function(exports) {
+    exports.Models = exports.Models || {};
     /*
      * Generate random and unique id's
      */
@@ -9,7 +10,7 @@
     /*
      * Model for containing show data
      */
-    exports.ShowModel = Backbone.Model.extend({
+    exports.Models.Show= Backbone.Model.extend({
         defaults: {
             title: 'Anime Title',
             baseUrl: '#',

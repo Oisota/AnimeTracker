@@ -1,8 +1,9 @@
 (function(exports) {
+    exports.Views = exports.Views || {};
     /*
      * View for a single show model
      */
-    exports.ShowView = Backbone.View.extend({
+    exports.Views.Show = Backbone.View.extend({
         tagName: 'li',
         className: 'list-group-item',
         template: Handlebars.templates['show'],
@@ -82,19 +83,19 @@
     /*
      * View for a collection of show models
      */
-    exports.ShowListView = Backbone.View.extend({
+    exports.Views.ShowList = Backbone.View.extend({
         el: '#show-list-view',
 
         initialize: function() {
             self = this;
             this.views = [];
             this.collection.each(function(model) {
-                self.views.push(new exports.ShowView({
+                self.views.push(new exports.Views.Show({
                     model: model
                 }));
             });
             this.listenTo(this.collection, 'add', function(model) {
-                self.views.push(new exports.ShowView({
+                self.views.push(new exports.Views.Show({
                     model: model
                 }));
                 self.render();

@@ -10,7 +10,7 @@ $(document).ready(function() {
         var baseUrl = $('#url-input').val();
         var episode = $('#episode-input').val();
         var url = baseUrl.replace('{}', episode);
-        window.shows.add(new App.ShowModel({
+        window.shows.add(new App.Models.Show({
             title: title,
             baseUrl: baseUrl,
             url: url,
@@ -19,8 +19,8 @@ $(document).ready(function() {
     });
 
     chrome.storage.sync.get('shows', function(items) {
-        window.shows = new App.ShowCollection(items.shows);
-        window.showListView = new App.ShowListView({
+        window.shows = new App.Collections.Show(items.shows);
+        window.showListView = new App.Views.ShowList({
             collection: window.shows
         });
     });

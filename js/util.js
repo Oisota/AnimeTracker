@@ -1,5 +1,5 @@
 (function(exports) {
-    exports.Util = {};
+    exports.Util = exports.Util || {};
 
     exports.Util.fieldsEmpty = function(fields) {
         for (var i=0; i<fields.length; i++) {
