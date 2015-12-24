@@ -9,5 +9,21 @@
             }
         }
         return false;
-    }
+    };
+
+    exports.Util.addShow = function() {
+        if (exports.Util.fieldsEmpty(['#title-input','#url-input','#episode-input'])) {
+            return
+        }
+        var title = $('#title-input').val();
+        var baseUrl = $('#url-input').val();
+        var episode = $('#episode-input').val();
+        var url = baseUrl.replace('{}', episode);
+        exports.Collections.shows.add(new exports.Models.Show({
+            title: title,
+            baseUrl: baseUrl,
+            url: url,
+            episode: episode
+        }));
+    };
 })(this.App = this.App || {});
