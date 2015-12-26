@@ -1,9 +1,11 @@
-(function(exports) {
-    exports.Views = exports.Views || {};
+App = App || {};
+
+App.Views = (function() {
+    exports = {}
     /*
      * View for a single show model
      */
-    exports.Views.Show = Backbone.View.extend({
+    exports.Show = Backbone.View.extend({
         tagName: 'li',
         className: 'list-group-item',
         template: Handlebars.templates['show'],
@@ -83,19 +85,19 @@
     /*
      * View for a collection of show models
      */
-    exports.Views.ShowList = Backbone.View.extend({
+    exports.ShowList = Backbone.View.extend({
         el: '#show-list-view',
 
         initialize: function() {
             self = this;
             this.views = [];
             this.collection.each(function(model) {
-                self.views.push(new exports.Views.Show({
+                self.views.push(new App.Views.Show({
                     model: model
                 }));
             });
             this.listenTo(this.collection, 'add', function(model) {
-                self.views.push(new exports.Views.Show({
+                self.views.push(new App.Views.Show({
                     model: model
                 }));
                 self.render();
@@ -112,4 +114,6 @@
             return this;
         }
     });
-})(this.App = this.App || {});
+
+    return exports;
+})();

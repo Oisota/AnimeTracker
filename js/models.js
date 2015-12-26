@@ -1,5 +1,7 @@
-(function(exports) {
-    exports.Models = exports.Models || {};
+var App = App || {};
+
+App.Models = (function() {
+    exports = {};
     /*
      * Generate random and unique id's
      */
@@ -10,7 +12,7 @@
     /*
      * Model for containing show data
      */
-    exports.Models.Show= Backbone.Model.extend({
+    exports.Show = Backbone.Model.extend({
         defaults: {
             title: 'Anime Title',
             baseUrl: '#',
@@ -47,4 +49,6 @@
             });
         }
     });
-})(this.App = this.App || {});
+
+    return exports;
+})();

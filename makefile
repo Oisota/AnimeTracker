@@ -3,10 +3,12 @@ TMPLT_FLAGS = -m
 TEMPLATES = js/templates
 
 MIN = uglifyjs
-MIN_FLAGS = --screw-ie8 -o
+MIN_FLAGS = --screw-ie8 --preamble " " -o
 
 SED = sed
-SED_FLAGS = '/jquery\|bootstrap\|handlebars\|storage.js\|show.min.js/d'
+SED_RM = '/script\|link/d'
+SED_JS = '/<title>/a <script type="text/javascript" src="../js/popup.js"></script>'
+SED_CSS = '/<title>/a <link type="text/css" rel="stylesheet" href="../css/style.css"/>'
 
 BUILD = build
 EXT = $(BUILD)/AnimeTracker
@@ -17,6 +19,8 @@ ASSETS = assets
 JQUERY = jquery/dist/jquery.min.js
 BSTRAP = bootstrap/dist/js/bootstrap.min.js
 HBARS = handlebars/handlebars.runtime.min.js
+USCORE = underscore/underscore-min.js
+BBONE = backbone/backbone-min.js
 
 
 .PHONY: all
@@ -30,12 +34,12 @@ $(EXT):
 	mkdir -p $(EXT)/assets
 	mkdir -p $(EXT)/fonts
 
-# remove script tags
+# remove script and link tags
 $(EXT)/html/popup.html: html/popup.html
-	$(SED) $(SED_FLAGS) $^ > $@
+	cat $^ | $(SED) $(SED_RM) | $(SED) $(SED_JS) | $(SED) $(SED_CSS) > $@
 
 # concatenate all js files
-$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(SRC)/storage.min.js $(SRC)/popup.min.js $(TEMPLATES)/show.min.js
+$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(LIB)/$(USCORE) $(LIB)/$(BBONE) $(SRC)/models.min.js $(SRC)/collections.min.js $(SRC)/views.min.js $(SRC)/util.min.js $(SRC)/popup.min.js $(TEMPLATES)/show.min.js
 	cat $^ > $@
 
 # minify js

@@ -1,12 +1,18 @@
 /*
- * Execute code when the document has loaded fully
+ * Main entry point of the application.
  */
 $(document).ready(function() {
     $('#add-show').click(App.Util.addShow);
-    chrome.storage.sync.get('shows', function(items) {
-        App.Collections.shows = new App.Collections.Show(items.shows);
-        App.Views.showListView = new App.Views.ShowList({
-            collection: App.Collections.shows
-        });
+    App.Collections.shows = new App.Collections.Show();
+    App.Collections.shows.fetch({
+        success: function(collection, response, options) {
+            App.Views.showListView = new App.Views.ShowList({
+                collection: App.Collections.shows
+            });
+        },
+        error: function(collection, response, options) {
+            console.log('Error retrieving collection');
+            console.log(response);
+        }
     });
 });
