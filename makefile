@@ -24,7 +24,7 @@ BBONE = backbone/backbone-min.js
 
 
 .PHONY: all
-all: $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json
+all: $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json $(EXT)/LICENSE.txt $(EXT)/README.markdown
 
 # make directory structure
 $(EXT):
@@ -50,8 +50,8 @@ $(SRC)/%.min.js: $(SRC)/%.js
 $(TEMPLATES)/%.min.js: $(TEMPLATES)/%.handlebars
 	$(TMPLT) $(TMPLT_FLAGS) $< > $@
 
-# copy manifest
-$(EXT)/manifest.json: manifest.json
+# copy files
+$(EXT)/%: %
 	cp $< $@
 
 # concatenate all css files
