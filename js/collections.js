@@ -11,30 +11,29 @@ App.Collections = (function(Model) {
         model: Model,
         url: '#',
 
-        sync: function(method, model, options) {
-            self = this;
-            switch (method) {
-                case 'create':
-                    break;
-                case 'read':
-                    chrome.storage.sync.get('shows', function(items) {
-                        if (chrome.runtime.lastError) {
-                            options.error(this, chrome.runtime.lastError.message);
-                            return;
-                        }
-                        model.set(items.shows);
-                        options.success();
-                    });
-                    break;
-                case 'update':
-                    chrome.storage.sync.set('shows', model.toJSON);
-                    break;
-                case 'delete':
-                    break;
-                    chrome.storage.sync.clear();
-                default:
+        initialize: function() {
+        },
+
+        save: function(options) {
+            chrome.storage.sync.set({'shows': this.toJSON()}, (function(self) {
+                return function() {
+                    if (chrome.runtime.lastError) {
+                        options.error(chrome.runtime.lastError.message);
+                        return;
+                    }
+                    options.success(self.toJSON());
+                }
+            })(this));
+        },
+
+        load: function(options) {
+            chrome.storage.sync.get('shows', function(items) {
+                if (chrome.runtime.lastError) {
+                    options.error(chrome.runtime.lastError.message);
                     return;
-            }
+                }
+                options.success(items);
+            });
         }
     });
 
