@@ -39,7 +39,7 @@ $(EXT)/html/popup.html: html/popup.html
 	cat $^ | $(SED) $(SED_RM) | $(SED) $(SED_JS) | $(SED) $(SED_CSS) > $@
 
 # concatenate all js files
-$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(LIB)/$(USCORE) $(LIB)/$(BBONE) $(SRC)/models.min.js $(SRC)/collections.min.js $(SRC)/views.min.js $(SRC)/util.min.js $(SRC)/popup.min.js $(TEMPLATES)/show.min.js
+$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(LIB)/$(USCORE) $(LIB)/$(BBONE) $(TEMPLATES)/show.min.js $(SRC)/models.min.js $(SRC)/collections.min.js $(SRC)/views.min.js $(SRC)/util.min.js $(SRC)/popup.min.js
 	cat $^ > $@
 
 # minify js

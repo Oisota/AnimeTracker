@@ -11,7 +11,7 @@ App.Views = (function() {
     exports.Show = Backbone.View.extend({
         tagName: 'li',
         className: 'list-group-item',
-        template: Handlebars.templates['show'],
+        template: Handlebars.templates.show,
         events: {
             'click .prev': 'prev',
             'click .next': 'next',
