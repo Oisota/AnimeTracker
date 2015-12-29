@@ -68,7 +68,7 @@ App.Views = (function() {
         },
 
         remove: function() {
-            App.Collections.shows.remove(this.model);
+            this.model.destroy();
             this.remove();
         },
 
@@ -90,11 +90,24 @@ App.Views = (function() {
         el: '#show-list-view',
 
         initialize: function() {
-            self = this;
+            var self = this;
+
+            this.listenTo(this.collection, 'change', (function(self) {
+                return function(model, options) {
+                    self.collection.save({
+                        success: function(response) {
+                            console.log(response)
+                        },
+                        error: function(response) {
+                            console.log(response)
+                        },
+                    });
+                }
+            })(self));
 
             this.listenTo(this.collection, 'update', (function(self) {
-                return function(model) {
-                    self.collection.save({
+                return function(collection, options) {
+                    collection.save({
                         success: function(response) {
                             console.log(response)
                         },
@@ -110,7 +123,7 @@ App.Views = (function() {
         },
 
         render: function() {
-            self = this;
+            var self = this;
             this.$el.empty();
             this.collection.each(function(model) {
                 self.$el.append((new App.Views.Show({model: model})).render().el);

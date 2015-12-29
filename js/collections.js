@@ -12,6 +12,10 @@ App.Collections = (function(Model) {
         url: '#',
 
         initialize: function() {
+            var self = this;
+            this.listenTo(this, 'destroy', function(model, collection, options) {
+                    collection.remove(model);
+            });
         },
 
         save: function(options) {
