@@ -2,6 +2,8 @@
  * Main entry point of the application.
  */
 $(document).ready(function() {
+    'use strict';
+
     $('#add-show').click(App.Util.addShow);
     App.Collections.shows = new App.Collections.Show();
     App.Collections.shows.load({

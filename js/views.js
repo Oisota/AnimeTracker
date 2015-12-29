@@ -1,7 +1,10 @@
 App = App || {};
 
 App.Views = (function() {
-    exports = {}
+    'use strict';
+
+    var exports = {};
+
     /*
      * View for a single show model
      */
@@ -45,6 +48,7 @@ App.Views = (function() {
 
         update: function() {
             if (this.fieldsEmpty(['.title', '.url', '.episode'])) {
+                this.cancelUpdate();
                 return;
             }
 
@@ -73,13 +77,13 @@ App.Views = (function() {
         },
 
         fieldsEmpty: function(fields) {
-            for (var i=0; i<fields.length; i++) {
-                var field = this.$(fields[i]).val().trim();
-                if (field === '') {
-                    return true;
+            var result = false;
+            fields.forEach(function(field) {
+                if ($(field).val().trim() === '') {
+                    result = true;
                 }
-            }
-            return false;
+            });
+            return result
         }
     });
 

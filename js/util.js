@@ -1,16 +1,18 @@
 var App = App || {};
 
 App.Util = (function() {
-    exports = {};
+    'use strict';
+
+    var exports = {};
 
     var fieldsEmpty = function(fields) {
-        for (var i=0; i<fields.length; i++) {
-            var field = $(fields[i]).val().trim();
-            if (field === '') {
-                return true;
+        var result = false;
+        fields.forEach(function(field) {
+            if ($(field).val().trim() === '') {
+                result = true;
             }
-        }
-        return false;
+        });
+        return result;
     };
 
     exports.addShow = function() {

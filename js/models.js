@@ -1,7 +1,10 @@
 var App = App || {};
 
 App.Models = (function() {
-    exports = {};
+    'use strict';
+
+    var exports = {};
+
     /*
      * Generate random and unique id's
      */

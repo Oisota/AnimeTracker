@@ -1,8 +1,9 @@
 var App = App || {};
 
 App.Collections = (function(Model) {
+    'use strict';
 
-    exports = {};
+    var exports = {};
 
     /*
      * Collection for show models
