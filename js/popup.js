@@ -8,7 +8,7 @@ $(document).ready(function() {
     App.Collections.shows = new App.Collections.Show();
     App.Collections.shows.load({
         success: function(response) {
-            App.Collections.shows.add(response.shows)
+            App.Collections.shows.add(response.shows);
             App.Views.showListView = new App.Views.ShowList({
                 collection: App.Collections.shows
             });
