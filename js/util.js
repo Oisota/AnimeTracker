@@ -15,6 +15,12 @@ App.Util = (function() {
         return result;
     };
 
+    var clearFields = function(fields) {
+        fields.forEach(function(field) {
+            $(field).val('');
+        });
+    };
+
     exports.addShow = function() {
         if (fieldsEmpty(['#title-input','#url-input','#episode-input'])) {
             return
@@ -29,6 +35,11 @@ App.Util = (function() {
             url: url,
             episode: episode
         }));
+        clearFields(['#title-input','#url-input','#episode-input']);
+    };
+
+    exports.cancelAddShow = function() {
+        clearFields(['#title-input','#url-input','#episode-input']);
     };
 
     return exports;

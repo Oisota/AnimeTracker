@@ -5,6 +5,8 @@ $(document).ready(function() {
     'use strict';
 
     $('#add-show').click(App.Util.addShow);
+    $('#cancel-add').click(App.Util.cancelAddShow);
+
     App.Collections.shows = new App.Collections.Show();
     App.Collections.shows.load({
         success: function(response) {
