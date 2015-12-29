@@ -68,7 +68,8 @@ App.Views = (function() {
         },
 
         remove: function() {
-            this.model.destroy();
+            App.Collections.shows.remove(this.model);
+            this.remove();
         },
 
         fieldsEmpty: function(fields) {
@@ -82,7 +83,7 @@ App.Views = (function() {
         }
     });
 
-    /*
+    /* 
      * View for a collection of show models
      */
     exports.ShowList = Backbone.View.extend({
@@ -90,26 +91,29 @@ App.Views = (function() {
 
         initialize: function() {
             self = this;
-            this.views = [];
-            this.collection.each(function(model) {
-                self.views.push(new App.Views.Show({
-                    model: model
-                }));
-            });
-            this.listenTo(this.collection, 'add', function(model) {
-                self.views.push(new App.Views.Show({
-                    model: model
-                }));
-                self.render();
-            });
+
+            this.listenTo(this.collection, 'update', (function(self) {
+                return function(model) {
+                    self.collection.save({
+                        success: function(response) {
+                            console.log(response)
+                        },
+                        error: function(response) {
+                            console.log(response)
+                        },
+                    });
+                    self.render();
+                }
+            })(self));
+            
             this.render();
         },
 
         render: function() {
             self = this;
             this.$el.empty();
-            _.each(this.views, function(view) {
-                self.$el.append(view.render().el);
+            this.collection.each(function(model) {
+                self.$el.append((new App.Views.Show({model: model})).render().el);
             });
             return this;
         }
