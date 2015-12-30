@@ -47,7 +47,7 @@ App.Views = (function() {
         },
 
         update: function() {
-            if (this.fieldsEmpty(['.title', '.url', '.episode'])) {
+            if (App.Util.fieldsEmpty(this, ['.title', '.url', '.episode'])) {
                 this.cancelUpdate();
                 return;
             }
@@ -74,16 +74,6 @@ App.Views = (function() {
         remove: function() {
             this.model.destroy();
             this.remove();
-        },
-
-        fieldsEmpty: function(fields) {
-            var result = false;
-            fields.forEach(function(field) {
-                if ($(field).val().trim() === '') {
-                    result = true;
-                }
-            });
-            return result
         }
     });
 
