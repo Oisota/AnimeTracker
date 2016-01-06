@@ -17,7 +17,7 @@ App.Views = (function() {
             'click .next': 'next',
             'click .update': 'update',
             'click .cancel': 'cancelUpdate',
-            'click .remove': 'remove'
+            'click .remove': '_remove'
         },
 
         initialize: function() {
@@ -71,7 +71,7 @@ App.Views = (function() {
             this.$('.episode').val(this.model.get('episode'));
         },
 
-        remove: function() {
+        _remove: function() {
             this.model.destroy();
             this.remove();
         }
