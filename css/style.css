@@ -2,6 +2,10 @@ body {
     width: 250px;
 }
 
+.collapse {
+    padding-top: 0.8em;
+}
+
 #new-show-form {
     padding-bottom: 0.8em;
 }
