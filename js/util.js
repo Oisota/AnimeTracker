@@ -39,7 +39,7 @@ App.Util = (function() {
     };
 
     exports.cancelAddShow = function() {
-        clearFields(window, ['#title-input','#url-input','#episode-input']);
+        clearFields(['#title-input','#url-input','#episode-input']);
     };
 
     return exports;
