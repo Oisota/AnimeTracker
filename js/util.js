@@ -42,5 +42,13 @@ App.Util = (function() {
         clearFields(['#title-input','#url-input','#episode-input']);
     };
 
+    exports.displayNoShowsMsg = function() {
+        $('#no-show-msg').show();
+    }
+
+    exports.hideNoShowsMsg = function() {
+        $('#no-show-msg').hide();
+    }
+
     return exports;
 })();

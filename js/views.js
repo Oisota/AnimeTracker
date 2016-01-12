@@ -122,6 +122,11 @@ App.Views = (function() {
             this.collection.each(function(model) {
                 self.$el.append((new App.Views.Show({model: model})).render().el);
             });
+            if (this.$el.html() === '') {
+                App.Util.displayNoShowsMsg();
+            } else {
+                App.Util.hideNoShowsMsg();
+            }
             return this;
         }
     });
