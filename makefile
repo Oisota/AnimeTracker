@@ -10,8 +10,12 @@ SED_RM = '/script\|link/d'
 SED_JS = '/<title>/a <script type="text/javascript" src="../js/popup.js"></script>'
 SED_CSS = '/<title>/a <link type="text/css" rel="stylesheet" href="../css/style.css"/>'
 
+ZIP = zip
+ZIP_FLAGS = -r
+
 BUILD = build
 EXT = $(BUILD)/AnimeTracker
+EXT_ZIP = $(BUILD)/AnimeTracker.zip
 SRC = js
 LIB = lib
 ASSETS = assets
@@ -24,7 +28,10 @@ BBONE = backbone/backbone-min.js
 
 
 .PHONY: all
-all: $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json $(EXT)/LICENSE.txt $(EXT)/README.markdown
+all: $(EXT_ZIP)
+
+$(EXT_ZIP): $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json $(EXT)/LICENSE.txt $(EXT)/README.markdown
+	cd $(EXT) && $(ZIP) $(ZIP_FLAGS) ../AnimeTracker.zip ./*
 
 # make directory structure
 $(EXT):
