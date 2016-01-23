@@ -2,6 +2,10 @@ body {
     width: 250px;
 }
 
+label {
+    padding-top: 0.5em;
+}
+
 .collapse {
     padding-top: 0.8em;
 }
