@@ -43,13 +43,13 @@ App.Models = (function() {
         decrUrl: function() {
             var baseUrl = this.get('baseUrl')
             var episode = this.get('episode')
-            if (episode > 1) {
+            if (Number(episode) > 1) {
                 var url = baseUrl.replace('{}', --episode);
+                this.set({
+                    url: url,
+                    episode: episode
+                });
             }
-            this.set({
-                url: url,
-                episode: episode
-            });
         }
     });
 
