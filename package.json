@@ -1,0 +1,9 @@
+{
+    "name": "AnimeTracker",
+    "version": "0.7.0",
+    "dependencies": {
+        "bower": "~1.7",
+        "handlebars": "~4.0",
+        "uglify": "~2.6"
+    }
+}
