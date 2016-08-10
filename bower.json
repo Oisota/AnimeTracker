@@ -1,5 +1,5 @@
 {
-    "name": "Anime Tracker",
+    "name": "anime-tracker",
     "description": "Extension that tracks which episode of an anime you're on.",
     "dependencies": {
         "jquery": "~2.1",

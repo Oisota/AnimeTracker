@@ -1,6 +1,6 @@
+#need to space out libs in popup.js
 TMPLT = handlebars
 TMPLT_FLAGS = -m
-TEMPLATES = js/templates
 
 MIN = uglifyjs
 MIN_FLAGS = --screw-ie8 --preamble " " -o
@@ -19,43 +19,54 @@ EXT_ZIP = $(BUILD)/AnimeTracker.zip
 SRC = js
 LIB = lib
 ASSETS = assets
+TEMPLATES = templates
 
 JQUERY = jquery/dist/jquery.min.js
 BSTRAP = bootstrap/dist/js/bootstrap.min.js
 HBARS = handlebars/handlebars.runtime.min.js
 USCORE = underscore/underscore-min.js
 BBONE = backbone/backbone-min.js
+LIBS = $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) \
+	   $(LIB)/$(USCORE) $(LIB)/$(BBONE)
 
+JS_SRCS = $(patsubst $(SRC)/%.js, $(EXT)/$(SRC)/%.min.js, $(wildcard $(SRC)/*.js)) \
+		  $(patsubst $(TEMPLATES)/%.handlebars, $(EXT)/$(SRC)/%.min.js, $(wildcard $(TEMPLATES)/*.handlebars))
+
+DEPS = $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css \
+	   $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png \
+	   $(EXT)/manifest.json $(EXT)/LICENSE.txt $(EXT)/README.markdown
 
 .PHONY: all
 all: $(EXT_ZIP)
 
-$(EXT_ZIP): $(EXT) $(EXT)/html/popup.html $(EXT)/js/popup.js $(EXT)/css/style.css $(EXT)/fonts/glyphicons-halflings-regular.* $(EXT)/assets/icon*.png $(EXT)/manifest.json $(EXT)/LICENSE.txt $(EXT)/README.markdown
+#create zip file
+$(EXT_ZIP): $(DEPS)
 	cd $(EXT) && $(ZIP) $(ZIP_FLAGS) ../AnimeTracker.zip ./*
 
 # make directory structure
 $(EXT):
-	mkdir -p $(EXT)/html
-	mkdir -p $(EXT)/css
-	mkdir -p $(EXT)/js
-	mkdir -p $(EXT)/assets
-	mkdir -p $(EXT)/fonts
+	mkdir -p $@/html
+	mkdir -p $@/css
+	mkdir -p $@/js
+	mkdir -p $@/assets
+	mkdir -p $@/fonts
 
 # remove script and link tags
 $(EXT)/html/popup.html: html/popup.html
 	cat $^ | $(SED) $(SED_RM) | $(SED) $(SED_JS) | $(SED) $(SED_CSS) > $@
 
 # concatenate all js files
-$(EXT)/js/popup.js: $(LIB)/$(JQUERY) $(LIB)/$(BSTRAP) $(LIB)/$(HBARS) $(LIB)/$(USCORE) $(LIB)/$(BBONE) $(TEMPLATES)/show.min.js $(SRC)/models.min.js $(SRC)/collections.min.js $(SRC)/views.min.js $(SRC)/util.min.js $(SRC)/popup.min.js
+$(EXT)/$(SRC)/popup.js: $(LIBS) $(JS_SRCS)
 	cat $^ > $@
+	$(RM) $(JS_SRCS)
 
 # minify js
-$(SRC)/%.min.js: $(SRC)/%.js
+$(EXT)/$(SRC)/%.min.js: $(SRC)/%.js
 	$(MIN) $^ $(MIN_FLAGS) $@
 
 # compile templates
-$(TEMPLATES)/%.min.js: $(TEMPLATES)/%.handlebars
-	$(TMPLT) $(TMPLT_FLAGS) $< > $@
+$(SRC)/%.js: $(TEMPLATES)/%.handlebars
+	$(TMPLT) $< > $@
 
 # copy files
 $(EXT)/%: %
@@ -74,11 +85,11 @@ $(EXT)/assets/icon%.png: assets/icon%.png
 	cp $^ $(EXT)/assets 
 
 .PHONY: templates
-templates: $(TEMPLATES)/show.min.js
+templates: $(SRC)/show.js
 
 .PHONY: clean
 clean:
-	$(RM) -r $(BUILD) $(SRC)/*.min.js $(TEMPLATES)/*.js
+	$(RM) -r $(BUILD)
 
 .PHONY: rebuild
 rebuild: clean all
