@@ -1,7 +1,7 @@
+'use strict';
 App = App || {};
 
 App.Views = (function() {
-    'use strict';
 
     var exports = {};
 
@@ -19,25 +19,21 @@ App.Views = (function() {
             'click .cancel': 'cancelUpdate',
             'click .remove': '_remove'
         },
-
         initialize: function() {
             this.listenTo(this.model, 'change', this.render);
             this.render();
         },
-
         render: function() {
             var html = this.template(this.model.toJSON());
             this.$el.html(html);
             return this;
         },
-
         prev: function() {
             this.model.decrUrl();
             chrome.tabs.create({
                 url: this.model.get('url')
             });
         },
-
         next: function() {
             var tempUrl = this.model.get('url');
             this.model.incrUrl();
@@ -45,7 +41,6 @@ App.Views = (function() {
                 url: tempUrl
             });
         },
-
         update: function() {
             if (App.Util.fieldsEmpty(this, ['.title', '.url', '.episode'])) {
                 this.cancelUpdate();
@@ -64,13 +59,11 @@ App.Views = (function() {
                 episode: episode
             });
         },
-
         cancelUpdate: function() {
             this.$('.title').val(this.model.get('title'));
             this.$('.url').val(this.model.get('baseUrl'));
             this.$('.episode').val(this.model.get('episode'));
         },
-
         _remove: function() {
             this.model.destroy();
             this.remove();
@@ -82,7 +75,6 @@ App.Views = (function() {
      */
     exports.ShowList = Backbone.View.extend({
         el: '#show-list-view',
-
         initialize: function() {
             var self = this;
 
@@ -115,7 +107,6 @@ App.Views = (function() {
             
             this.render();
         },
-
         render: function() {
             var self = this;
             this.$el.empty();

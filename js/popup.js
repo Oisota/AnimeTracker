@@ -1,8 +1,8 @@
+'use strict';
 /*
  * Main entry point of the application.
  */
 $(document).ready(function() {
-    'use strict';
 
     $('#add-show').click(App.Util.addShow);
     $('#cancel-add').click(App.Util.cancelAddShow);

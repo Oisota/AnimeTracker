@@ -1,7 +1,7 @@
+'use strict';
 var App = App || {};
 
 App.Models = (function() {
-    'use strict';
 
     var exports = {};
 
@@ -22,14 +22,12 @@ App.Models = (function() {
             url: '#',
             episode: 1,
         },
-
         initialize: function() {
             this.set({
                 removeId: generateId(),
                 infoId: generateId(),
             });
         },
-
         incrUrl: function() {
             var baseUrl = this.get('baseUrl')
             var episode = this.get('episode')
@@ -39,7 +37,6 @@ App.Models = (function() {
                 episode: episode
             });
         },
-
         decrUrl: function() {
             var baseUrl = this.get('baseUrl')
             var episode = this.get('episode')

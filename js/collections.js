@@ -1,7 +1,7 @@
+'use strict';
 var App = App || {};
 
 App.Collections = (function(Model) {
-    'use strict';
 
     var exports = {};
 
@@ -11,14 +11,12 @@ App.Collections = (function(Model) {
     exports.Show = Backbone.Collection.extend({
         model: Model,
         url: '#',
-
         initialize: function() {
             var self = this;
             this.listenTo(this, 'destroy', function(model, collection, options) {
                     collection.remove(model);
             });
         },
-
         save: function(options) {
             chrome.storage.sync.set({'shows': this.toJSON()}, (function(self) {
                 return function() {
@@ -30,7 +28,6 @@ App.Collections = (function(Model) {
                 }
             })(this));
         },
-
         load: function(options) {
             chrome.storage.sync.get('shows', function(items) {
                 if (chrome.runtime.lastError) {

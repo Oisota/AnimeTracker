@@ -1,7 +1,7 @@
+'use strict';
 var App = App || {};
 
 App.Util = (function() {
-    'use strict';
 
     var exports = {};
 
