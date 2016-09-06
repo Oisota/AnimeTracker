@@ -1,5 +1,4 @@
 assets/*.xcf
-lib/*
-js/templates/*.js
-js/*.min.js
+node_modules/*
+js/bundle.js
 build

@@ -1,18 +1,21 @@
 'use strict';
+
+var util = require('./util.js');
+var collections = require('./collections.js');
+var models = require('./models.js');
+var views = require('./views.js');
+
 /*
  * Main entry point of the application.
  */
-$(document).ready(function() {
+document.addEventListener('load', () => {
 
-    $('#add-show').click(App.Util.addShow);
-    $('#cancel-add').click(App.Util.cancelAddShow);
-
-    App.Collections.shows = new App.Collections.Show();
-    App.Collections.shows.load({
+    const shows = new collections.Show();
+    shows.load({
         success: function(response) {
-            App.Collections.shows.add(response.shows);
-            App.Views.showListView = new App.Views.ShowList({
-                collection: App.Collections.shows
+            shows.add(response.shows);
+            const showListView = new views.ShowList({
+                collection: shows
             });
         },
         error: function(response) {
@@ -20,4 +23,10 @@ $(document).ready(function() {
             console.log(response);
         }
     });
+
+
+    document.getElementById('add-show').addEventListener('click', () => {
+        util.addShow(shows, models.Show);
+    });
+    document.getElementById('cancel-add').addEventListener('click', util.cancelAddShow);
 });
