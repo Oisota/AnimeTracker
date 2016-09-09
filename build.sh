@@ -1,22 +1,44 @@
 #!/bin/bash
+set -x
 
-mkdir -p build
-mkdir -p build/AnimeTracker
-mkdir -p build/AnimeTracker/html
-mkdir -p build/AnimeTracker/css
-mkdir -p build/AnimeTracker/js
-mkdir -p build/AnimeTracker/assets
-mkdir -p build/AnimeTracker/fonts
+ext="AnimeTracker"
+dist="dist"
+browserify="./node_modules/.bin/browserify"
 
-./node_modules/.bin/browserify js/*.js -o build/AnimeTracker/js/bundle.js
+clean() {
+    rm -rf $dist
+}
 
-cp html/* build/AnimeTracker/html/
-cp node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.* build/AnimeTracker/fonts/
-cp assets/icon*.png build/AnimeTracker/assets/
-cp manifest.json LICENSE.txt README.markdown build/AnimeTracker/
+build() {
+    mkdir -p $dist
+    mkdir -p $dist/$ext
+    mkdir -p $dist/$ext/html
+    mkdir -p $dist/$ext/css
+    mkdir -p $dist/$ext/js
+    mkdir -p $dist/$ext/assets
+    mkdir -p $dist/$ext/fonts
 
-cat node_modules/bootstrap/dist/css/bootstrap.min.css > build/AnimeTracker/css/style.css
-cat css/style.css >> build/AnimeTracker/css/style.css
+    $browserify js/*.js -o $dist/$ext/js/bundle.js
 
-cd build/AnimeTracker
-zip -r ../AnimeTracker.zip ./*
+    cp html/* $dist/$ext/html/
+    cp node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.* $dist/$ext/fonts/
+    cp assets/icon*.png $dist/$ext/assets/
+    cp manifest.json LICENSE.txt README.markdown $dist/$ext/
+
+    cat node_modules/bootstrap/dist/css/bootstrap.min.css > $dist/$ext/css/bundle.css
+    cat css/style.css >> $dist/$ext/css/bundle.css
+
+    cd $dist/$ext
+    zip -r ../$ext.zip ./*
+}
+
+if [ "$1" == "clean" ]
+then
+    clean
+elif [ "$1" == "rebuild" ]
+then
+    clean
+    rebuild
+else
+    build
+fi

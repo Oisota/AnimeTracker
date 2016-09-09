@@ -2,7 +2,7 @@
 
 var Backbone = require('backbone');
 var $ = require('jquery');
-var renderShow = require('./show.js');
+var templates = require('./templates.js');
 var util = require('./util.js');
 
 /*
@@ -11,7 +11,7 @@ var util = require('./util.js');
 exports.Show = Backbone.View.extend({
     tagName: 'li',
     className: 'list-group-item',
-    template: renderShow,
+    template: templates.renderShow,
     events: {
         'click .prev': 'prev',
         'click .next': 'next',

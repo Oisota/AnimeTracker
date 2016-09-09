@@ -1,7 +1,6 @@
 'use strict';
 
-function renderShow(show) {
-   return `
+exports.renderShow = (show) => `
         <div class="text-center">
             <h4>${show.title}</h4>
             <div class="btn-group">
@@ -30,10 +29,8 @@ function renderShow(show) {
             <div class="form-group">
                 <label for="titleinput">Title</label>
                 <input type="text" name="title" class="title form-control" value="${show.title}"/>
-        
                 <label for="urlinput">URL</label>
                 <input type="text" name="url" class="url form-control" value="${show.baseUrl}"/>
-        
                 <label for="episodeinput">Episode</label>
                 <input type="text" name="episode" class="episode form-control" value="${show.episode}"/>
             </div>
@@ -41,8 +38,4 @@ function renderShow(show) {
                 <button type="button" class="update btn btn-primary" data-toggle="collapse" data-target="#${show.infoId}">Update</button>
                 <button type="button" class="cancel btn btn-primary" data-toggle="collapse" data-target="#${show.infoId}">Cancel</button>
             </div>
-        </div>
-       `
-}
-
-module.exports = renderShow
+        </div>`;

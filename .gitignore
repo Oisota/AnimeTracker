@@ -1,4 +1,4 @@
 assets/*.xcf
 node_modules/*
 js/bundle.js
-build
+dist/*
