@@ -1,4 +1,3 @@
 assets/*.xcf
 node_modules/*
-js/bundle.js
-dist/*
+*.zip

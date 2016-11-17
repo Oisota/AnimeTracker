@@ -8,7 +8,7 @@ App.util = {
         });
     },
 
-    fieldsEmpty: function(ctx, fields) {
+    fieldsEmpty: (ctx, fields) => {
         let result = false;
         fields.forEach(function(field) {
             if (ctx.$(field).val().trim() === '') {
@@ -18,7 +18,7 @@ App.util = {
         return result;
     },
 
-    getShowData: function() {
+    getShowData: () => {
         if (App.util.fieldsEmpty(window, ['#title-input','#url-input','#episode-input'])) {
             return
         }

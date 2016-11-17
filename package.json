@@ -11,7 +11,7 @@
     },
     "scripts": {
         "build": "./build.sh",
-        "clean": "./build.sh clean",
-        "rebuild": "./build.sh rebuild"
+        "clean": "rm AnimeTracker.zip",
+        "rebuild": "npm run clean && npm run build"
     }
 }
