@@ -1,6 +1,8 @@
 'use strict';
+var App = App || {};
 
-exports.renderShow = (show) => `
+App.templates = {
+    renderShow: (show) => `
         <div class="text-center">
             <h4>${show.title}</h4>
             <div class="btn-group">
@@ -38,4 +40,5 @@ exports.renderShow = (show) => `
                 <button type="button" class="update btn btn-primary" data-toggle="collapse" data-target="#${show.infoId}">Update</button>
                 <button type="button" class="cancel btn btn-primary" data-toggle="collapse" data-target="#${show.infoId}">Cancel</button>
             </div>
-        </div>`;
+        </div>`
+};
