@@ -1,9 +1,5 @@
 'use strict';
-var App = App || {};
 
-/*
- * Main entry point of the application.
- */
 const shows = new App.collections.Show();
 shows.load({
     success: function(response) {
@@ -18,10 +14,15 @@ shows.load({
     }
 });
 
-
-document.getElementById('add-show').addEventListener('click', (event) => {
+//event handler for adding a new show
+document
+.getElementById('add-show')
+.addEventListener('click', (event) => {
     const fields = ['#title-input','#url-input','#episode-input'];
-    if (App.util.fieldsEmpty(window, fields)) {
+    const fieldsEmpty = fields.reduce((prev, cur) => {
+        return $(cur).val().trim() === '' && prev;
+    }, true);
+    if (fieldsEmpty) {
         return;
     }
     //get show data
@@ -37,9 +38,13 @@ document.getElementById('add-show').addEventListener('click', (event) => {
         episode: episode
     });
 
-    App.util.clearFields(fields);
+    fields.forEach(field => $(field).val('')); //clear fields
 });
 
-document.getElementById('cancel-add').addEventListener('click', (event) => {
-    App.util.clearFields(['#title-input','#url-input','#episode-input']);
+//event handler for cancel add show button
+document
+.getElementById('cancel-add')
+.addEventListener('click', (event) => {
+    const fields = ['#title-input','#url-input','#episode-input'];
+    fields.forEach(field => $(field).val('')); //clear fields
 });
