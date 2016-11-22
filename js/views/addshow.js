@@ -7,7 +7,7 @@ App.views.AddShow = Backbone.View.extend({
     template: App.templates.renderAddShow,
     events: {
         'click #add-show': 'addShow',
-        'click #cancel-add': 'cancelAdd'
+        'click #cancel-add': 'clearFields'
     },
     initialize: function() {
         this.render();
@@ -35,9 +35,9 @@ App.views.AddShow = Backbone.View.extend({
             episode: episode
         });
     
-        this.fields.forEach(field => $(field).val('')); //clear fields
+        this.clearFields();
     },
-    cancelAdd: function() {
-        this.fields.forEach(field => $(field).val('')); //clear fields
+    clearFields: function() {
+        this.fields.forEach(field => $(field).val(''));
     },
 });
