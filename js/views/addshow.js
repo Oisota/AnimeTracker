@@ -18,7 +18,9 @@ App.views.AddShow = Backbone.View.extend({
         return this;
     },
     addShow: function() {
-        const fieldsEmpty = this.fields.reduce((prev, cur) => ($(cur).val().trim() === '' && prev), true);
+        const fieldsEmpty = this.fields.reduce((function(prev, cur) { 
+            return this.$(cur).val().trim() === '' && prev;
+        }).bind(this), true);
         if (fieldsEmpty) {
             return;
         }

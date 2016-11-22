@@ -37,7 +37,9 @@ App.views.Show = Backbone.View.extend({
     },
     update: function() {
         const fields = ['.title', '.url', '.episode'];
-        const fieldsEmpty = fields.reduce((prev, cur) => (this.$(field).val().trim() === '' && prev), true);
+        const fieldsEmpty = fields.reduce((function(prev, cur) {
+            return this.$(cur).val().trim() === '' && prev
+        }).bind(this), true);
 
         if (fieldsEmpty) {
             this.cancelUpdate();
