@@ -23,16 +23,21 @@ App.views.Show = Backbone.View.extend({
         return this;
     },
     prev: function() {
-        this.model.decrUrl();
+        const url = this.model.get('url');
+        const episode = Number(this.model.get('episode'));
+        if (episode - 1 > 0) {
+            this.model.set('episode', episode - 1);
+        }
         chrome.tabs.create({
-            url: this.model.get('url')
+            url: url.replace('{}', this.model.get('episode'))
         });
     },
     next: function() {
-        const tempUrl = this.model.get('url');
-        this.model.incrUrl();
+        const url = this.model.get('url');
+        const episode = Number(this.model.get('episode'));
+        this.model.set('episode', episode + 1)
         chrome.tabs.create({
-            url: tempUrl
+            url: url.replace('{}', episode)
         });
     },
     update: function() {
@@ -46,21 +51,15 @@ App.views.Show = Backbone.View.extend({
             return;
         }
 
-        const title = this.$('.title').val();
-        const baseUrl = this.$('.url').val();
-        const episode = this.$('.episode').val();
-        const url = baseUrl.replace('{}', episode);
-
         this.model.set({
-            title: title,
-            baseUrl: baseUrl,
-            url: url,
-            episode: episode
+            title: this.$('.title').val(),
+            url: this.$('.url').val(),
+            episode: this.$('.episode').val()
         });
     },
     cancelUpdate: function() {
         this.$('.title').val(this.model.get('title'));
-        this.$('.url').val(this.model.get('baseUrl'));
+        this.$('.url').val(this.model.get('url'));
         this.$('.episode').val(this.model.get('episode'));
     },
     _remove: function() {

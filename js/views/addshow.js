@@ -13,33 +13,29 @@ App.views.AddShow = Backbone.View.extend({
         this.render();
     },
     render: function() {
-        const html = this.template();
-        this.$el.html(html);
+        this.$el.html(this.template());
         return this;
     },
     addShow: function() {
         const fieldsEmpty = this.fields.reduce((function(prev, cur) { 
             return this.$(cur).val().trim() === '' && prev;
         }).bind(this), true);
+
         if (fieldsEmpty) {
             return;
         }
-        //get show data
-        const title = this.$('#title-input').val();
-        const baseUrl = this.$('#url-input').val();
-        const episode = this.$('#episode-input').val();
-        const url = baseUrl.replace('{}', episode);
 
         this.collection.add({
-            title: title,
-            baseUrl: baseUrl,
-            url: url,
-            episode: episode
+            title: this.$('#title-input').val(),
+            url: this.$('#url-input').val(),
+            episode: this.$('#episode-input').val()
         });
     
         this.clearFields();
     },
     clearFields: function() {
-        this.fields.forEach(field => $(field).val(''));
-    },
+        this.fields.forEach((function(field) {
+            this.$(field).val('');
+        }).bind(this));
+    }
 });

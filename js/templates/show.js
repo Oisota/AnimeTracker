@@ -32,7 +32,7 @@ App.templates.renderShow = (show) => `
         <label for="titleinput">Title</label>
         <input type="text" name="title" class="title form-control" value="${show.title}"/>
         <label for="urlinput">URL</label>
-        <input type="text" name="url" class="url form-control" value="${show.baseUrl}"/>
+        <input type="text" name="url" class="url form-control" value="${show.url}"/>
         <label for="episodeinput">Episode</label>
         <input type="text" name="episode" class="episode form-control" value="${show.episode}"/>
     </div>
