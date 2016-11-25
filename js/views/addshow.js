@@ -3,11 +3,11 @@ var App = App || {};
 App.views = App.views || {};
 
 App.views.AddShow = Backbone.View.extend({
-    fields: ['#title-input','#url-input','#episode-input'],
     template: App.templates.renderAddShow,
     events: {
-        'click #add-show': 'addShow',
-        'click #cancel-add': 'clearFields'
+        'submit #new-show-form': 'addShow',
+        'hide.bs.collapse #new-show-form': 'hide',
+        'show.bs.collapse #new-show-form': 'show'
     },
     initialize: function() {
         this.render();
@@ -16,26 +16,21 @@ App.views.AddShow = Backbone.View.extend({
         this.$el.html(this.template());
         return this;
     },
-    addShow: function() {
-        const fieldsEmpty = this.fields.reduce((function(prev, cur) { 
-            return this.$(cur).val().trim() === '' && prev;
-        }).bind(this), true);
-
-        if (fieldsEmpty) {
-            return;
-        }
-
+    addShow: function(event) {
+        event.preventDefault();
         this.collection.add({
             title: this.$('#title-input').val(),
             url: this.$('#url-input').val(),
             episode: this.$('#episode-input').val()
         });
-    
-        this.clearFields();
+        event.target.reset();
     },
-    clearFields: function() {
-        this.fields.forEach((function(field) {
-            this.$(field).val('');
-        }).bind(this));
+    hide: function(event) {
+        this.$('#show-dropdown-btn')
+            .html('<span class="glyphicon glyphicon-menu-down"></span>');
+    },
+    show: function(event) {
+        this.$('#show-dropdown-btn')
+            .html('<span class="glyphicon glyphicon-menu-up"></span>');
     }
 });

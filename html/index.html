@@ -3,29 +3,16 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Episode Tracker</title>
-        <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/style.css" type="text/css" />
     </head>
 
     <body>
         <div id="main" class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="no-show-msg" class="text-center">
-                        <h4><small>No shows to display</small></h4>
-                        <h4><small>Click the button below to add a show</small></h4>
-                    </div>
-
-                    <ul id="show-list-view" class="list-group">
-                    </ul>
-
-                    <button type="button" class="btn btn-success center-block" data-toggle="collapse" data-target="#new-show-form">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-
-                    <div id="new-show-form" class="collapse">
-                    </div>
-
+                    <div id="show-list-view"></div>
+                    <div id="add-show-view"></div>
                 </div>
             </div>
         </div>
@@ -36,6 +23,7 @@
 
         <script src="../js/templates/show.js"></script>
         <script src="../js/templates/addshow.js"></script>
+        <script src="../js/templates/showlist.js"></script>
         <script src="../js/models/show.js"></script>
         <script src="../js/collections/showlist.js"></script>
         <script src="../js/views/show.js"></script>

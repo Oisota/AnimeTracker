@@ -1,19 +1,31 @@
 body {
-    width: 250px;
-}
-
-label {
-    padding-top: 0.5em;
-}
-
-.collapse {
-    padding-top: 0.8em;
-}
-
-#new-show-form {
-    padding-bottom: 0.8em;
+    width: 300px;
 }
 
 #show-list-view {
     margin-top: 0.5em;
+}
+
+#add-show-view {
+    padding-bottom: 0.8em;
+}
+
+#show-dropdown-btn {
+    margin-bottom: 0.8em;
+}
+
+.list-group-item h4 {
+    display: inline;
+}
+
+.list-group-item {
+    padding-bottom: 1.8em;
+}
+
+.update {
+    margin-top: 1.5em;
+}
+
+.remove-dropdown {
+    margin-top: 1em;
 }

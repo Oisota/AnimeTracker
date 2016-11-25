@@ -4,12 +4,13 @@ App.views = App.views || {};
 
 App.views.ShowList = Backbone.View.extend({
     el: '#show-list-view',
+    template: App.templates.renderShowList,
     saveOptions: {
-        success: function(response) {
+        success: response => {
             console.log('Collection Saved');
             console.log(response)
         },
-        error: function(response) {
+        error: response => {
             console.log('Error: Collection Could Not Be Saved');
             console.log(response)
         },
@@ -28,14 +29,17 @@ App.views.ShowList = Backbone.View.extend({
     },
     render: function() {
         this.$el.empty();
-        this.collection.each((function(model) {
-            this.$el.append((new App.views.Show({model: model})).render().el);
-        }).bind(this));
-        if (this.$el.html() === '') {
-            $('#no-show-msg').show();
+
+        if (this.collection.length === 0) {
+            this.$el.html(this.template(true));
         } else {
-            $('#no-show-msg').hide();
+            this.$el.html(this.template(false));
+            const $ul = this.$el.find('ul');
+            this.collection.each((function(model) {
+                $ul.append((new App.views.Show({model: model})).render().el);
+            }).bind(this));
         }
+
         return this;
     }
 });
