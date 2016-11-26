@@ -10,22 +10,25 @@ App.collections.Show = Backbone.Collection.extend({
             collection.remove(model);
         });
     },
-    save: function(options) {
+    save: function() {
         chrome.storage.sync.set({'shows': this.toJSON()}, (function() {
             if (chrome.runtime.lastError) {
-                options.error(chrome.runtime.lastError.message);
+                console.log('Error: Collection Could Not Be Saved');
+                console.log(chrome.runtime.lastError.message);
             } else {
-                options.success(this.toJSON());
+                console.log('Collection Saved');
+                console.log(this.toJSON());
             }
         }).bind(this));
     },
-    load: function(options) {
-        chrome.storage.sync.get('shows', function(items) {
+    load: function() {
+        chrome.storage.sync.get('shows', (function(items) {
             if (chrome.runtime.lastError) {
-                options.error(chrome.runtime.lastError.message);
+                console.log('Error Loading Shows');
+                console.log(chrome.runtime.lastError.message);
             } else {
-                options.success(items);
+                this.add(items.shows);
             }
-        });
+        }).bind(this));
     }
 });

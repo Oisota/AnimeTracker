@@ -3,15 +3,10 @@ var App = App || {};
 App.models = App.models || {};
 
 App.models.Show = Backbone.Model.extend({
-    defaults: {
-        title: 'Anime Title',
-        url: '#',
-        episode: 1,
-    },
     initialize: function() {
         this.set({
             removeId: this.genID(),
-            infoId: this.genID(),
+            infoId: this.genID()
         });
     },
     genID: function genID() {

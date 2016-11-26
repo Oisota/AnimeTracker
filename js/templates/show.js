@@ -9,6 +9,7 @@ App.templates.renderShow = (show) => `
         <span class="badge">${show.episode}</span>
     </a>
 </h4>
+
 <div class="pull-right show-btns">
     <div class="btn-group">
         <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#${show.infoId}">

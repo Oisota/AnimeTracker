@@ -3,25 +3,14 @@ var App = App || {};
 App.views = App.views || {};
 
 App.views.ShowList = Backbone.View.extend({
-    el: '#show-list-view',
     template: App.templates.renderShowList,
-    saveOptions: {
-        success: response => {
-            console.log('Collection Saved');
-            console.log(response)
-        },
-        error: response => {
-            console.log('Error: Collection Could Not Be Saved');
-            console.log(response)
-        },
-    },
     initialize: function() {
         this.listenTo(this.collection, 'change', (function(model, options) {
-            this.collection.save(this.saveOptions);
+            this.collection.save();
         }).bind(this));
 
         this.listenTo(this.collection, 'update', function(collection, options) {
-            collection.save(this.saveOptions);
+            collection.save();
             this.render();
         });
 

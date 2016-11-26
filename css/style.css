@@ -7,11 +7,12 @@ body {
 }
 
 #add-show-view {
+    padding-top: 0.4em;;
     padding-bottom: 0.8em;
 }
 
 #show-dropdown-btn {
-    margin-bottom: 0.8em;
+    margin-bottom: 0.7em;
 }
 
 .list-group-item h4 {
