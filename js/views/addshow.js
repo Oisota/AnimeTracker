@@ -24,6 +24,7 @@ App.views.AddShow = Backbone.View.extend({
             episode: this.$('#episode-input').val()
         });
         event.target.reset();
+        this.$('#title-input').focus();
     },
     hide: function(event) {
         this.$('#show-dropdown-btn')
