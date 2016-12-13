@@ -9,7 +9,7 @@ App.models.Show = Backbone.Model.extend({
             infoId: this.genID()
         });
     },
-    genID: function genID() {
+    genID: function() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
 });
