@@ -3,13 +3,13 @@ var App = App || {};
 App.models = App.models || {};
 
 App.models.Show = Backbone.Model.extend({
-    initialize: function() {
-        this.set({
-            removeId: this.genID(),
-            infoId: this.genID()
-        });
-    },
-    genID: function() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    }
+	initialize: function() {
+		this.set({
+			removeId: this.genID(),
+			infoId: this.genID()
+		});
+	},
+	genID: function() {
+		return '_' + Math.random().toString(36).substr(2, 9);
+	}
 });
