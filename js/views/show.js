@@ -21,11 +21,8 @@ App.views.Show = Backbone.View.extend({
 		return this;
 	},
 	next: function() {
-		const url = this.model.get('url');
-		const episode = Number(this.model.get('episode'));
-		this.model.set('episode', episode + 1);
 		chrome.tabs.create({
-			url: url.replace('{}', episode)
+			url: this.model.next()
 		});
 	},
 	update: function(event) {
