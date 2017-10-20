@@ -1,10 +1,8 @@
-'use strict';
-var App = App || {};
-App.collections = App.collections || {};
+const Collection = require('ampersand-collection');
+const showModel = require('../models/show');
 
-App.collections.Show = Backbone.Collection.extend({
-	model: App.models.Show,
-	url: '#',
+module.exports = Collection.extend({
+	model: showModel,
 	initialize: function() {
 		this.listenTo(this, 'destroy', function(model, collection) {
 			collection.remove(model);

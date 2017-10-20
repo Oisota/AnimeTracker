@@ -1,19 +1,20 @@
-'use strict';
-var App = App || {};
-App.models = App.models || {};
+const State = require('ampersand-state');
 
-App.models.Show = Backbone.Model.extend({
+module.exports = State.extend({
+	props: {
+		title: 'string',
+		url: 'string',
+		episode: 'number',
+		removeId: 'string',
+		infoId: 'string'
+	},
 	initialize: function() {
-		this.set({
-			removeId: this.genID(),
-			infoId: this.genID()
-		});
+		this.removeId = this.genID();
+		this.infoId = this.genID();
 	},
 	next: function() {
-		const url = this.get('url');
-		const episode = Number(this.get('episode'));
-		this.set('episode', episode + 1);
-		return url.replace('{}', this.get('episode'));
+		this.episode = Number(this.episode) + 1;
+		return this.url.replace('{}', this.episode);
 	},
 	genID: function() {
 		return '_' + Math.random().toString(36).substr(2, 9);

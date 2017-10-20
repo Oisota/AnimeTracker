@@ -24,8 +24,8 @@ module.exports = {
 		]
 	},
 	"globals": {
-		"Backbone": false,
 		"chrome": false,
-		"App": false
+		"require": false,
+		"module": false
 	}
 };

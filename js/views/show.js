@@ -1,11 +1,9 @@
-'use strict';
-var App = App || {};
-App.views = App.views || {};
+const View = require('ampersand-view');
+const showTemplate = require('../templates/show.html');
 
-App.views.Show = Backbone.View.extend({
-	tagName: 'li',
-	className: 'list-group-item',
-	template: App.templates.renderShow,
+module.exports = View.extend({
+	template: showTemplate,
+	autoRender: true,
 	events: {
 		'click .next': 'next',
 		'submit .update': 'update',
@@ -13,7 +11,6 @@ App.views.Show = Backbone.View.extend({
 	},
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
-		this.render();
 	},
 	render: function() {
 		const html = this.template(this.model.toJSON());

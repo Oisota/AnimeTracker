@@ -1,9 +1,8 @@
-'use strict';
-var App = App || {};
-App.views = App.views || {};
+const View = require('ampersand-view');
+const addShowTemplate = require('../templates/add-show.html');
 
-App.views.AddShow = Backbone.View.extend({
-	template: App.templates.renderAddShow,
+module.exports = View.extend({
+	template: addShowTemplate,
 	events: {
 		'submit #new-show-form': 'addShow',
 		'hide.bs.collapse #new-show-form': 'hide',
