@@ -12,8 +12,10 @@
     "handlebars": "^4.0.11"
   },
   "scripts": {
-    "build": "browserify *.js -t browserify-handlebars -o build/app.bundle.js",
-    "clean": "rm AnimeTracker.zip",
+		"build": "npm run build-js && npm run build-copy-files",
+    "build-js": "browserify js/*.js -t browserify-handlebars -o build/app.bundle.js",
+    "build-copy-files": "cp -r manifest.json html/popup.html css/style.css assets build",
+    "clean": "rm -r build/*",
     "rebuild": "npm run clean && npm run build",
     "lint": "eslint js",
     "test": ""

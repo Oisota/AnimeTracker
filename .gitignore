@@ -1,3 +1,4 @@
+build/
 assets/
 node_modules/*
 *.zip

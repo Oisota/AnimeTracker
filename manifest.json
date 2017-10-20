@@ -14,7 +14,7 @@
             "19": "assets/icon19.png",
             "38": "assets/icon38.png"
         },
-        "default_popup": "html/index.html",
+        "default_popup": "popup.html",
         "default_title": "Track Episodes"
     },
     "permissions": [

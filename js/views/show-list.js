@@ -1,5 +1,5 @@
 const View = require('ampersand-view');
-const showListTemplate = require('../tempaltes/show-list.html');
+const showListTemplate = require('../templates/show-list.html');
 const ShowView = require('./show');
 
 module.exports = View.extend({
