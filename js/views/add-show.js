@@ -12,10 +12,6 @@ module.exports = View.extend({
 	initialize: function() {
 		this.render();
 	},
-	render: function() {
-		this.$el.html(this.template());
-		return this;
-	},
 	addShow: function(event) {
 		event.preventDefault();
 		this.collection.add({
