@@ -3,6 +3,7 @@ const addShowTemplate = require('../templates/add-show.html');
 
 module.exports = View.extend({
 	template: addShowTemplate,
+	autoRender: true,
 	events: {
 		'submit #new-show-form': 'addShow',
 		'hide.bs.collapse #new-show-form': 'hide',

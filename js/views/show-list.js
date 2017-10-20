@@ -4,6 +4,7 @@ const ShowView = require('./show');
 
 module.exports = View.extend({
 	template: showListTemplate,
+	autoRender: true,
 	initialize: function() {
 		this.listenTo(this.collection, 'change', (function() {
 			this.collection.save();
