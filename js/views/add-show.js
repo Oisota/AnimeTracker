@@ -6,8 +6,6 @@ module.exports = View.extend({
 	autoRender: true,
 	events: {
 		'submit #new-show-form': 'addShow',
-		'hide.bs.collapse #new-show-form': 'hide',
-		'show.bs.collapse #new-show-form': 'show'
 	},
 	initialize: function() {
 		this.render();
@@ -21,11 +19,5 @@ module.exports = View.extend({
 		});
 		event.target.reset();
 		this.query('#title-input').focus();
-	},
-	hide: function() {
-		this.query('#show-dropdown-btn').innerHTML = '<span class="glyphicon glyphicon-menu-down"></span>';
-	},
-	show: function() {
-		this.query('#show-dropdown-btn').innerHTML = 'span class="glyphicon glyphicon-menu-up"></span>';
 	}
 });
