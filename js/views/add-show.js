@@ -15,19 +15,17 @@ module.exports = View.extend({
 	addShow: function(event) {
 		event.preventDefault();
 		this.collection.add({
-			title: this.$('#title-input').val(),
-			url: this.$('#url-input').val(),
-			episode: this.$('#episode-input').val()
+			title: this.query('#title-input').value,
+			url: this.query('#url-input').value,
+			episode: this.query('#episode-input').value
 		});
 		event.target.reset();
-		this.$('#title-input').focus();
+		this.query('#title-input').focus();
 	},
 	hide: function() {
-		this.$('#show-dropdown-btn')
-			.html('<span class="glyphicon glyphicon-menu-down"></span>');
+		this.query('#show-dropdown-btn').innerHTML = '<span class="glyphicon glyphicon-menu-down"></span>';
 	},
 	show: function() {
-		this.$('#show-dropdown-btn')
-			.html('<span class="glyphicon glyphicon-menu-up"></span>');
+		this.query('#show-dropdown-btn').innerHTML = 'span class="glyphicon glyphicon-menu-up"></span>';
 	}
 });
