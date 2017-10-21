@@ -6,7 +6,7 @@ module.exports = View.extend({
 	events: {
 		'click .next': 'next',
 		'submit .update': 'update',
-		'click .remove': '_remove'
+		'click .remove': 'removeHandler'
 	},
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
@@ -24,7 +24,8 @@ module.exports = View.extend({
 			episode: Number(this.query('.episode').value)
 		});
 	},
-	_remove: function() {
+	removeHandler: function () {
+		this.model.collection.remove(this.model);
 		this.remove();
-	}
+	},
 });

@@ -8,7 +8,6 @@ window.app = app;
 app.extend({
 	init: function () {
 		this.shows = new ShowCollection();
-		this.shows.load();
 
 		this.showsView = new ShowListView({
 			el: document.getElementById('show-list-view'),
