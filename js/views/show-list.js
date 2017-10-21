@@ -1,4 +1,5 @@
 const View = require('ampersand-view');
+const ShowView = require('./show');
 const showListTemplate = require('../templates/show-list.html');
 
 module.exports = View.extend({
@@ -20,7 +21,8 @@ module.exports = View.extend({
 			collection.save();
 			this.render();
 		});
-
-		this.render();
+	},
+	render: function () {
+		this.renderCollection(this.collection, ShowView, '[data-hook="show-list"]');
 	},
 });

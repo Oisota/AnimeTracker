@@ -17,7 +17,7 @@ module.exports = View.extend({
 		this.collection.add({
 			title: this.query('#title-input').value,
 			url: this.query('#url-input').value,
-			episode: this.query('#episode-input').value
+			episode: Number(this.query('#episode-input').value)
 		});
 		event.target.reset();
 		this.query('#title-input').focus();

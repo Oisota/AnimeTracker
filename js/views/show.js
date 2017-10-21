@@ -3,7 +3,6 @@ const showTemplate = require('../templates/show.html');
 
 module.exports = View.extend({
 	template: showTemplate,
-	autoRender: true,
 	events: {
 		'click .next': 'next',
 		'submit .update': 'update',
@@ -20,13 +19,12 @@ module.exports = View.extend({
 	update: function(event) {
 		event.preventDefault();
 		this.model.set({
-			title: this.$('.title').val(),
-			url: this.$('.url').val(),
-			episode: this.$('.episode').val()
+			title: this.query('.title').value,
+			url: this.query('.url').value,
+			episode: Number(this.query('.episode').value)
 		});
 	},
 	_remove: function() {
-		this.model.destroy();
 		this.remove();
 	}
 });
